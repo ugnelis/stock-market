@@ -1,0 +1,18 @@
+{
+  "username": "Moderator",
+  "email": "moderator@test",
+  "signedUp": 1456479489872,
+  "permissions": [
+    {
+      "id": 2,
+      "name": "moderator",
+      "authority": "ROLE_MODERATOR"
+    },
+    {
+      "id": 3,
+      "name": "user",
+      "authority": "ROLE_USER"
+    }
+  ],
+  "gender": "NOT_SPECIFIED"
+}

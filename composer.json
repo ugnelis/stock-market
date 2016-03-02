@@ -1,0 +1,15 @@
+{
+  "name": "ugnelis/stock_market",
+  "description": "Stock Market for KTU module.",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ugnius Malukas",
+      "email": "ugnius@malukas.lt"
+    }
+  ],
+  "require": {
+    "laravel/installer": "v1.1.1"
+  }
+}

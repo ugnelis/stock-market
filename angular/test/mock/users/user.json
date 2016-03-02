@@ -1,0 +1,13 @@
+{
+  "username": "User",
+  "email": "user@test",
+  "signedUp": 1456479489872,
+  "permissions": [
+    {
+      "id": 3,
+      "name": "user",
+      "authority": "ROLE_USER"
+    }
+  ],
+  "gender": "NOT_SPECIFIED"
+}

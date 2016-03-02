@@ -1,0 +1,43 @@
+{
+  "name": "angular-simple-app",
+  "version": "0.0.1",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "angular",
+    "bootstrap",
+    "ui.router"
+  ],
+  "authors": [
+    "Ugnius Malukas"
+  ],
+  "license": "MIT",
+  "homepage": "http://malukas.lt",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.4.9",
+    "angular-animate": "1.4.9",
+    "angular-messages": "1.4.9",
+    "angular-sanitize": "1.4.9",
+    "angular-resource": "1.4.9",
+    "angular-jwt": "0.0.9",
+    "a0-angular-storage": "0.0.13",
+    "angular-bootstrap": "0.14.3",
+    "angular-loading-bar": "0.8.0",
+    "angular-ui-router": "0.2.18",
+    "bootstrap": "3.3.5",
+    "jquery": "2.1.4",
+    "themify-icons": "~0.1.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.4.9",
+    "angular-scenario": "1.4.9"
+  }
+}
