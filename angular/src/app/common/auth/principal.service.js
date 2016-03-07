@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module('app')
-    .factory('principal', ['$q', '$http', '$timeout', 'store', 'SERVER',
-        function ($q, $http, $timeout, store, SERVER) {
+    .factory('principal', ['$q', '$http', '$timeout', 'store', 'API',
+        function ($q, $http, $timeout, store, API) {
             var _identity = undefined,
                 _authenticated = false;
 
@@ -31,10 +31,10 @@ angular.module('app')
                     _identity = identity;
                     _authenticated = identity != null;
 
-                    if (identity) store.set('identity', angular.toJson(identity));
+                    if (identity) store.set('stock_market.identity', angular.toJson(identity));
                     else {
-                        store.remove('identity');
-                        store.remove('jwt');
+                        store.remove('stock_market.identity');
+                        store.remove('stock_market.jwt');
                     }
                 },
                 identity: function (force) {
@@ -48,14 +48,13 @@ angular.module('app')
                         return deferred.promise;
                     }
 
-                    $http.get(SERVER + '/profile', {ignoreErrors: true})
+                    $http.get(API.PROFILE, {ignoreErrors: true})
                         .success(function (data) {
+                            console.log(data);
                             _identity = data;
                             _authenticated = true;
-                            // roles parser
-                            _identity.roles = Object.keys(_identity.permissions).map(function (key) {
-                                return _identity.permissions[key].name
-                            });
+                            // roles
+                            _identity.roles = ['user'];
                             deferred.resolve(_identity);
                             principal.authenticate(_identity);
                         })
@@ -66,7 +65,7 @@ angular.module('app')
                         });
 
                     $timeout(function () {
-                        _identity = angular.fromJson(store.get('identity'));
+                        _identity = angular.fromJson(store.get('stock_market.identity'));
                         principal.authenticate(_identity);
                         deferred.resolve(_identity);
                     }, 1000);
@@ -74,23 +73,24 @@ angular.module('app')
                     return deferred.promise;
                 },
                 login: function (credentials) {
+                    console.log(credentials);
                     return $http({
                         method: 'POST',
-                        url: SERVER + '/login',
+                        url: API.LOGIN,
                         data: JSON.stringify(credentials),
-                        ignoreErrors: true,
+                        //ignoreErrors: true,
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     })
                         .success(function (data) {
-                            store.set('jwt', data.token);
+                            store.set('stock_market.jwt', data.token);
                         })
                 },
                 register: function (credentials) {
                     return $http({
                         method: 'POST',
-                        url: SERVER + '/register',
+                        url: API.REGISTER,
                         data: JSON.stringify(credentials),
                         ignoreErrors: true,
                         headers: {

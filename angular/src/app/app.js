@@ -49,10 +49,10 @@ angular.module('app', [
                 delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
                 // JWT Token Handling
-                jwtInterceptorProvider.authHeader = 'X-AUTH-TOKEN';
-                jwtInterceptorProvider.authPrefix = '';
+                jwtInterceptorProvider.authHeader = 'Authorization';
+                jwtInterceptorProvider.authPrefix = 'Bearer ';
                 jwtInterceptorProvider.tokenGetter = function (store) {
-                    return store.get('jwt');
+                    return store.get('stock_market.jwt');
                 };
                 $httpProvider.interceptors.push('jwtInterceptor');
 
@@ -81,8 +81,5 @@ angular.module('app', [
                         }
                     }
                 });
-
-                // Pretty URL
-                //$locationProvider.html5Mode(true);
             }]
     );

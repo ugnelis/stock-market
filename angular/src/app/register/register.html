@@ -12,6 +12,15 @@
 
             <form class="form-signin" name="registerForm" ng-submit="register.registerAction()" novalidate>
                 <div class="form-group">
+                    <input type="text" name="name" class="form-control" placeholder="Name"
+                           ng-model="register.user.name"
+                           required/>
+                    <div class="help-block" ng-messages="registerForm.name.$error"
+                         ng-if="registerForm.name.$touched">
+                        <p ng-message="required">Your name is required.</p>
+                    </div>
+                </div>
+                <div class="form-group">
                     <input type="email" name="email" class="form-control" placeholder="Email"
                            ng-model="register.user.email"
                            ng-minlength="5"
@@ -20,19 +29,6 @@
                         <p ng-message="minlength">Your email is too short.</p>
                         <p ng-message="required">Your email is required.</p>
                         <p ng-message="email">This needs to be a valid email</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="username" class="form-control" placeholder="Username"
-                           ng-model="register.user.username"
-                           ng-minlength="5"
-                           ng-maxlength="20"
-                           required/>
-                    <div class="help-block" ng-messages="registerForm.username.$error"
-                         ng-if="registerForm.username.$touched">
-                        <p ng-message="minlength">Your username is too short.</p>
-                        <p ng-message="maxlength">Your username is too long.</p>
-                        <p ng-message="required">Your username is required.</p>
                     </div>
                 </div>
                 <div class="form-group">
