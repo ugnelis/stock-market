@@ -10,10 +10,10 @@ use App\Http\Controllers\Controller;
 use JWTAuth;
 use TymonJWTAuthExceptionsJWTException;
 use App\User;
+use App\Role;
 
 class AuthenticateController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('jwt.auth', ['except' => ['login', 'register']]);
@@ -47,6 +47,8 @@ class AuthenticateController extends Controller
                 'email' => $credentials['email'],
                 'password' => bcrypt($request['password']),
             ]);
+            $userRole = Role::where('name', '=', 'user')->first();
+            $user->attachRole($userRole);
         } catch (Exception $e) {
             return response()->json(['error' => 'user_already_exists'], Response::HTTP_CONFLICT);
         }
