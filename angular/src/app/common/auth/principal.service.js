@@ -50,11 +50,8 @@ angular.module('app')
 
                     $http.get(API.PROFILE, {ignoreErrors: true})
                         .success(function (data) {
-                            console.log(data);
                             _identity = data;
                             _authenticated = true;
-                            // roles
-                            _identity.roles = ['user'];
                             deferred.resolve(_identity);
                             principal.authenticate(_identity);
                         })
@@ -73,12 +70,11 @@ angular.module('app')
                     return deferred.promise;
                 },
                 login: function (credentials) {
-                    console.log(credentials);
                     return $http({
                         method: 'POST',
                         url: API.LOGIN,
                         data: JSON.stringify(credentials),
-                        //ignoreErrors: true,
+                        ignoreErrors: true,
                         headers: {
                             'Content-Type': 'application/json'
                         }

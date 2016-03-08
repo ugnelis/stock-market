@@ -8,6 +8,9 @@ use App\Http\Requests;
 use JWTAuth;
 use TymonJWTAuthExceptionsJWTException;
 use Auth;
+use Zizaco\Entrust\Entrust;
+use App\User;
+
 
 class ProfileController extends Controller
 {
@@ -18,6 +21,11 @@ class ProfileController extends Controller
 
     public function index()
     {
-        return Auth::user();
+        $user = Auth::user();
+        $result['name'] = $user->name;
+        $result['email'] = $user->email;
+        $result['roles'] = $user->roles->pluck('name');
+
+        return response()->json($result);
     }
 }

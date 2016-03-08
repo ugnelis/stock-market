@@ -11,7 +11,8 @@
     "php": ">=5.5.9",
     "laravel/framework": "5.2.*",
     "tymon/jwt-auth": "0.5.*",
-    "barryvdh/laravel-cors": "^0.8.0"
+    "barryvdh/laravel-cors": "^0.8.0",
+    "zizaco/entrust": "5.2.x-dev"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
