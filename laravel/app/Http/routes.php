@@ -2,7 +2,7 @@
 use App\User;
 
 Route::get('/', function () {
-    return view('index');
+    return view('welcome');
 });
 
 Route::group(['prefix' => 'api'], function()
