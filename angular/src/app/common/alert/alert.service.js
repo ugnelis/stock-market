@@ -16,6 +16,9 @@ angular.module('app')
                 },
                 getAlerts: function() {
                     return alerts;
+                },
+                clear: function() {
+                    alerts = [];
                 }
             };
             return alert;

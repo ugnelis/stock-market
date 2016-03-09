@@ -12,8 +12,8 @@ angular.module('app', [
         'ui.router'
     ])
     .run(
-        ['$rootScope', '$state', '$stateParams', 'cfpLoadingBar', 'auth', 'principal',
-            function ($rootScope, $state, $stateParams, cfpLoadingBar, auth, principal) {
+        ['$rootScope', '$state', '$stateParams', 'cfpLoadingBar', 'auth', 'principal', 'alert',
+            function ($rootScope, $state, $stateParams, cfpLoadingBar, auth, principal, alert) {
 
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
@@ -27,6 +27,9 @@ angular.module('app', [
                         $rootScope.toStateParams = toParams;
 
                         if (principal.isIdentityResolved()) auth.authorize();
+
+                        // Cleans alerts
+                        alert.clear();
                     });
 
                 $rootScope.$on('$stateChangeSuccess',

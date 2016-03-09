@@ -1,0 +1,4 @@
+<uib-alert ng-repeat="alert in alertbox.alerts" type="{{alert.type}}"
+           close="alertbox.close($index)">
+    {{alert.msg}}
+</uib-alert>

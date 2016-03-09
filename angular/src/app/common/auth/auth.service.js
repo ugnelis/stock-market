@@ -25,6 +25,9 @@ angular.module('app')
                 },
                 login: function (credentials) {
                     return principal.login(credentials)
+                        .error(function (response) {
+                            alert.add('danger', response.error);
+                        })
                         .then(function () {
                             principal.identity(true);
                             $state.go('home');
@@ -33,7 +36,7 @@ angular.module('app')
                 register: function (credentials) {
                     return principal.register(credentials)
                         .error(function (response) {
-                            alert.add('danger', response.message);
+                            alert.add('danger', response.error);
                         })
                         .then(function () {
                             principal.identity(true);

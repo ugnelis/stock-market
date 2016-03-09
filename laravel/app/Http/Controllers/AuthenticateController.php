@@ -25,7 +25,7 @@ class AuthenticateController extends Controller
 
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], Response::HTTP_UNAUTHORIZED);
+                return response()->json(['error' => 'Invalid credentials.'], Response::HTTP_UNAUTHORIZED);
             }
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], Response::HTTP_NOT_IMPLEMENTED);
@@ -39,7 +39,7 @@ class AuthenticateController extends Controller
         $credentials = $request->only('name', 'email', 'password');
 
         if (!isset($credentials['name']) || !isset($credentials['email']) || !isset($credentials['password']))
-            return response()->json(['error' => 'not_enough_fields'], Response::HTTP_CONFLICT);
+            return response()->json(['error' => 'Not enough fields.'], Response::HTTP_CONFLICT);
 
         try {
             $user = User::create([
@@ -49,8 +49,8 @@ class AuthenticateController extends Controller
             ]);
             $userRole = Role::where('name', '=', 'user')->first();
             $user->attachRole($userRole);
-        } catch (Exception $e) {
-            return response()->json(['error' => 'user_already_exists'], Response::HTTP_CONFLICT);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'User already exists.'], Response::HTTP_CONFLICT);
         }
 
         $token = JWTAuth::fromUser($user);

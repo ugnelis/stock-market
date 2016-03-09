@@ -4,12 +4,7 @@
 <div class="row">
     <div class="col-sm-6 col-md-4 col-md-offset-4">
         <div class="account-wall">
-
-            <uib-alert ng-repeat="alert in register.alert.getAlerts()" type="{{alert.type}}"
-                       close="register.alert.close($index)">
-                {{alert.msg}}
-            </uib-alert>
-
+            <div alertbox></div>
             <form class="form-signin" name="registerForm" ng-submit="register.registerAction()" novalidate>
                 <div class="form-group">
                     <input type="text" name="name" class="form-control" placeholder="Name"
