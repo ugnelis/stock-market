@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app')
+angular.module('app.site')
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('home', {
@@ -10,9 +10,9 @@ angular.module('app')
                     roles: []
                 },
                 views: {
-                    'content@': {
-                        templateUrl: 'app/home/home.html',
-                        controller: 'HomeController as home'
+                    'content': {
+                        templateUrl: 'app/site/home/home.html',
+                        controller: 'SiteHomeController as home'
                     }
                 }
             });

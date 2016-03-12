@@ -1,9 +1,9 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" ng-app="app">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Angular Simple App</title>
+    <title>Stock Market</title>
     <meta name="description" content="">
     <meta name="google" value="notranslate">
     <meta name="viewport" content="width=device-width">
@@ -11,14 +11,8 @@
     <link rel="stylesheet" type="text/css" href="css/app.css">
     <base href="/">
 </head>
-<body ng-app="app">
-
-<div ui-view="navbar"></div>
-
-<div class="container theme-showcase">
-    <div ui-view="content"></div>
-</div>
-<div ui-view="footer"></div>
+<body>
+<div ui-view></div>
 <script src="js/dep.js"></script>
 <script src="js/app.js"></script>
 </body>

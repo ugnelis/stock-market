@@ -37,7 +37,7 @@ class YahooFinance
      * b4 – Book Value
      * b6 – Bid Size
      * c – Change and Percent Change
-     * vc1 – Change
+     * c1 – Change
      * c3 – Commission
      * c6 – Change (Real-time)
      * c8 – After Hours Change (Real-time)
@@ -165,6 +165,7 @@ class YahooFinance
             }
         }
 
+        $result = [];
 
         if ($paramsString != "" && $columnsString != "" && $stocksString != "") {
             $yql_query = "select * from csv where url='http://download.finance.yahoo.com/d/quotes.csv?s=$stocksString&f=$paramsString&e=.csv' and columns='$columnsString'";
@@ -176,8 +177,8 @@ class YahooFinance
             // Convert JSON to PHP object
             $result = json_decode($json);
 
-            return response()->json($result->query->results->row);
+            return $result->query->results->row;
         }
-        return response()->json();
+        return $result;
     }
 }

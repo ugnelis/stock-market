@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app')
+angular.module('app.site')
     .config(['$httpProvider', '$stateProvider', function ($httpProvider, $stateProvider) {
         $stateProvider
             .state('login', {
@@ -10,9 +10,9 @@ angular.module('app')
                     roles: []
                 },
                 views: {
-                    'content@': {
-                        templateUrl: 'app/login/login.html',
-                        controller: 'LoginController as login'
+                    'content': {
+                        templateUrl: 'app/site/login/login.html',
+                        controller: 'SiteLoginController as login'
                     }
                 }
             });

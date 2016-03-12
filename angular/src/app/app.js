@@ -9,7 +9,8 @@ angular.module('app', [
         'angular-loading-bar',
         'angular-storage',
         'ui.bootstrap',
-        'ui.router'
+        'ui.router',
+        'app.site'
     ])
     .run(
         ['$rootScope', '$state', '$stateParams', 'cfpLoadingBar', 'auth', 'principal', 'alert',
@@ -62,27 +63,5 @@ angular.module('app', [
                 // Default URL
                 $urlRouterProvider
                     .otherwise('/');
-
-                $stateProvider.state('site', {
-                    abstract: true,
-                    cache: false,
-                    resolve: {
-                        authorize: ['auth',
-                            function (auth) {
-                                return auth.authorize();
-                            }
-                        ]
-                    },
-                    views: {
-                        'navbar@': {
-                            templateUrl: 'app/layouts/navbar/navbar.html',
-                            controller: 'NavbarController as navbar'
-                        },
-                        'footer@': {
-                            templateUrl: 'app/layouts/footer/footer.html',
-                            controller: 'FooterController as footer'
-                        }
-                    }
-                });
             }]
     );

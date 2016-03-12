@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app')
+angular.module('app.site')
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('register', {
@@ -10,9 +10,9 @@ angular.module('app')
                     roles: []
                 },
                 views: {
-                    'content@': {
-                        templateUrl: 'app/register/register.html',
-                        controller: 'RegisterController as register'
+                    'content': {
+                        templateUrl: 'app/site/register/register.html',
+                        controller: 'SiteRegisterController as register'
                     }
                 }
             });

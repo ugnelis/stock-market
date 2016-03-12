@@ -1,0 +1,19 @@
+<div loadingspin ng-hide="stockstable.loaded"></div>
+<table class="view-frame table table-striped stockstable" ng-if="stockstable.loaded">
+    <thead>
+    <tr>
+        <th>Company</th>
+        <th>Last Sale*</th>
+        <th>Price Change Net / %</th>
+        <th>Volume % Change</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="stock in stockstable.stocks">
+        <td>{{stock.name}} ({{stock.symbol | uppercase}})</td>
+        <td>${{stock.price}}</td>
+        <td ng-class="{ success: stock.change[0] == '+', danger: stock.change[0] == '-' }">{{stock.change}}</td>
+        <td>{{stock.volume | number}}</td>
+    </tr>
+    </tbody>
+</table>

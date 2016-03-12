@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('app')
-    .controller('NavbarController', ['$scope', '$state', 'principal', function ($scope, $state, principal) {
+angular.module('app.site')
+    .controller('SiteNavbarController', ['$scope', '$state', 'principal', function ($scope, $state, principal) {
         this.principal = principal;
 
         this.signout = function () {

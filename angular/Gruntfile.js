@@ -6,15 +6,15 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-karma');
 
-    var plugins = ['karma-jasmine']
-    var browsers = []
+    var plugins = ['karma-jasmine'];
+    var browsers = [];
 
     if (process.env.TRAVIS) {
-        plugins.push('karma-firefox-launcher')
-        browsers.push('Firefox')
+        plugins.push('karma-firefox-launcher');
+        browsers.push('Firefox');
     } else {
-        plugins.push('karma-chrome-launcher')
-        browsers.push('Chrome')
+        plugins.push('karma-chrome-launcher');
+        browsers.push('Chrome');
     }
 
     // Project configuration.
@@ -74,6 +74,7 @@ module.exports = function (grunt) {
                 files: {
                     'dist/js/app.js': [
                         'src/app/app.js',
+                        'src/app/site/site.js',
                         'src/**/*.js'
                     ]
                 }
@@ -142,7 +143,7 @@ module.exports = function (grunt) {
                 tasks: ['concat:appCss']
             },
             copyPage: {
-                files:  'src/**/*.html',
+                files: 'src/**/*.html',
                 tasks: ['copy:main']
             },
             copyImages: {

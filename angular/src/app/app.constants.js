@@ -7,7 +7,9 @@ angular.module('app')
         return {
             LOGIN: server + "/login",
             REGISTER: server + "/register",
-            PROFILE: server + "/profile"
+            PROFILE: server + "/profile",
+            STOCK_INDEX: server + "/stock"
+
         }
     })())
     .constant('APP_ROLES', {

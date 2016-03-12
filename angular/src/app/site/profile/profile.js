@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app')
+angular.module('app.site')
     .config(['$httpProvider', '$stateProvider', function ($httpProvider, $stateProvider) {
         $stateProvider
             .state('profile', {
@@ -10,9 +10,9 @@ angular.module('app')
                     roles: ['user']
                 },
                 views: {
-                    'content@': {
-                        templateUrl: 'app/profile/profile.html',
-                        controller: 'ProfileController as profile'
+                    'content': {
+                        templateUrl: 'app/site/profile/profile.html',
+                        controller: 'SiteProfileController as profile'
                     }
                 }
             });
