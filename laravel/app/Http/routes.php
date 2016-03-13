@@ -10,4 +10,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('register', 'AuthenticateController@register');
     Route::get('profile', 'ProfileController@index');
     Route::get('stock', 'StockController@index');
+
+    Route::get('pages/{uri}', 'PageController@show');
 });

@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call('RolesTableSeeder');
         $this->command->info('Roles table seeded!');
+        $this->call('PagesTableSeeder');
+        $this->command->info('Pages table seeded!');
 
         Model::reguard();
     }

@@ -150,6 +150,7 @@ return [
         'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
         'Barryvdh\Cors\ServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
+        'Cviebrock\EloquentSluggable\SluggableServiceProvider',
 
         /*
          * Application Service Providers...
