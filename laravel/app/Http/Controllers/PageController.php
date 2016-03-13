@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Symfony\Component\HttpFoundation\Response;
 use App\Page;
+use Auth;
 
 class PageController extends Controller
 {
@@ -14,6 +15,7 @@ class PageController extends Controller
 
     public function __construct(Page $page)
     {
+        $this->middleware('jwt.auth', ['except' => ['show']]);
         $this->page = $page;
     }
 
@@ -24,7 +26,13 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        if (!$user->hasRole(['owner', 'moderator'])) {
+            return response()->json(['error' => 'You don&#39;t have permission to access.'], Response::HTTP_FORBIDDEN);
+        }
+
+        $page = $page = $this->page->all();
+        return response()->json($page);
     }
 
     /**
@@ -55,10 +63,9 @@ class PageController extends Controller
      */
     public function show($uri)
     {
-        //return response()->json($uri);
         $page = $this->page->get($uri);
 
-        if (empty((array) $page)) {
+        if (!$page) {
             return response()->json(['error' => 'Could not find a page.'], Response::HTTP_NOT_FOUND);
         }
 
@@ -95,6 +102,14 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user();
+        if (!$user->hasRole(['owner', 'moderator'])) {
+            return response()->json(['error' => 'You don&#39;t have permission to access.'], Response::HTTP_FORBIDDEN);
+        }
+
+        $page = Page::find($id);
+        $page->delete();
+
+        return response()->json(['success' => 'Page is removed.']);
     }
 }

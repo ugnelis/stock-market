@@ -1,5 +1,4 @@
 <?php
-use App\User;
 
 Route::get('/', function () {
     return view('welcome');
@@ -11,5 +10,5 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('profile', 'ProfileController@index');
     Route::get('stock', 'StockController@index');
 
-    Route::get('pages/{uri}', 'PageController@show');
+    Route::resource('pages', 'PageController');
 });
