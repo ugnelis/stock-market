@@ -32,17 +32,4 @@ class Page extends Model implements SluggableInterface
         'unique' => true,
         'include_trashed' => true,
     );
-
-    /**
-     * Returns the page object for the given slug
-     * @param $uri
-     * @return mixed
-     */
-    public function get($uri)
-    {
-        return self::where('uri','=',$uri)
-            ->where('status','=',Page::APPROVED)
-            ->first();
-            //->where('published_date','<=',\Carbon\Carbon::now())
-    }
 }

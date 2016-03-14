@@ -10,5 +10,9 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('profile', 'ProfileController@index');
     Route::get('stock', 'StockController@index');
 
-    Route::resource('pages', 'PageController');
+    Route::get('pages', 'PageController@index');
+    Route::get('pages/{uri}', 'PageController@show');
+    Route::post('pages', 'PageController@store');
+    Route::put('pages/{id}', 'PageController@update');
+    Route::delete('pages/{id}', 'PageController@destroy');
 });
