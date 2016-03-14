@@ -75,7 +75,7 @@ class PageController extends Controller
         $page->meta_description = Input::get('meta_description');
         $page->meta_keywords = Input::get('meta_keywords');
         $page->status = Input::get('status');
-        $page->published_date = Carbon::now();
+        $page->published_date = Input::get('published_date');
         $page->save();
 
         return response()->json(['success' => 'Page is created!']);
@@ -138,7 +138,7 @@ class PageController extends Controller
         $page->meta_description = Input::get('meta_description');
         $page->meta_keywords = Input::get('meta_keywords');
         $page->status = Input::get('status');
-        $page->published_date = Carbon::now();
+        $page->published_date = Input::get('published_date');
         $page->save();
 
         return response()->json(['success' => 'Page is updated!']);
