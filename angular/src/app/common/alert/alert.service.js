@@ -6,18 +6,23 @@ angular.module('app')
             var alerts = [];
             var alert = {
                 add: function (type, message) {
-                    if (type == "danger")
-                        alerts.push({type: "danger", msg: message});
-                    else if (type == "warning")
-                        alerts.push({type: "warning", msg: message});
+                    if (type != "success" && type != "info" && type != "warning" && type != "danger")
+                        type = "info";
+
+                    if (Array.isArray(message))
+                        message.forEach(function (entry) {
+                            alerts.push({type: type, msg: entry});
+                        });
+                    else
+                        alerts.push({type: type, msg: message});
                 },
                 close: function (index) {
                     alerts.splice(index, 1);
                 },
-                getAlerts: function() {
+                getAlerts: function () {
                     return alerts;
                 },
-                clear: function() {
+                clear: function () {
                     alerts = [];
                 }
             };

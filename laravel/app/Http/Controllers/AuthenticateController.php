@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -21,10 +23,24 @@ class AuthenticateController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $rules = array(
+            'email' => 'required|email',
+            'password' => 'required'
+        );
+
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+            // Generate an error message
+            $errors = array();
+            foreach ($validator->errors()->toArray() as $error)
+                $errors = array_merge($errors, $error);
+
+            return response()->json(['error' => $errors], Response::HTTP_CONFLICT);
+        }
 
         try {
-            if (!$token = JWTAuth::attempt($credentials)) {
+            if (!$token = JWTAuth::attempt(Input::all())) {
                 return response()->json(['error' => 'Invalid credentials.'], Response::HTTP_UNAUTHORIZED);
             }
         } catch (JWTException $e) {
@@ -36,16 +52,28 @@ class AuthenticateController extends Controller
 
     public function register(Request $request)
     {
-        $credentials = $request->only('name', 'email', 'password');
+        $rules = array(
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:5'
+        );
 
-        if (!isset($credentials['name']) || !isset($credentials['email']) || !isset($credentials['password']))
-            return response()->json(['error' => 'Not enough fields.'], Response::HTTP_CONFLICT);
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+            // Generate an error message
+            $errors = array();
+            foreach ($validator->errors()->toArray() as $error)
+                $errors = array_merge($errors, $error);
+
+            return response()->json(['error' => $errors], Response::HTTP_CONFLICT);
+        }
 
         try {
             $user = User::create([
-                'name' => $credentials['name'],
-                'email' => $credentials['email'],
-                'password' => bcrypt($request['password']),
+                'name' => Input::get('name'),
+                'email' => Input::get('email'),
+                'password' => bcrypt(Input::get('heading'))
             ]);
             $userRole = Role::where('name', '=', 'user')->first();
             $user->attachRole($userRole);
@@ -54,7 +82,6 @@ class AuthenticateController extends Controller
         }
 
         $token = JWTAuth::fromUser($user);
-
         return response()->json(compact('token'));
     }
 }
