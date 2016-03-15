@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests;
 use App\Page;
 use Auth;
-use Carbon\Carbon;
 
 class PageController extends Controller
 {
