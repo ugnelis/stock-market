@@ -1,8 +1,11 @@
 <div class="page-header">
     <h1>{{home.heading}}</h1>
 </div>
+<div class="jumbotron" ng-show="home.principal.isAuthenticated()">
+    <h1>Hello, {{home.principal.getName()}}!</h1>
+</div>
 <div class="panel panel-default">
     <div class="panel-heading">Stock Market Activity</div>
     <div stockstable></div>
 </div>
-<p ng-bind-html="home.content"></p>
+<div ng-bind-html="home.content"></div>

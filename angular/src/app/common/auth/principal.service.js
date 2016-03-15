@@ -7,6 +7,10 @@ angular.module('app')
                 _authenticated = false;
 
             var principal = {
+                getName: function () {
+                    if (_authenticated)
+                        return _identity.name;
+                },
                 isIdentityResolved: function () {
                     return angular.isDefined(_identity);
                 },
