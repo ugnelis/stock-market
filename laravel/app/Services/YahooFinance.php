@@ -3,25 +3,25 @@ namespace App\Services;
 
 class YahooFinance
 {
-    /**
-     * Array of stock code
-     */
-    private $stocks = array();
+    const BASE_URL = "http://query.yahooapis.com/v1/public/yql";
 
     /**
      * Parameters and column arrays to be fetched
      */
     private $format = array();
 
-    /**
-     * Populate stock array with stock code
-     *
-     * @param string $stock Stock code of company
-     * @return void
-     */
-    public function addStock($stock)
+    public function __construct()
     {
-        $this->stocks[] = $stock;
+        $this->addFormat('s', 'symbol');
+        $this->addFormat('n', 'name');
+        $this->addFormat('l1', 'price');
+        $this->addFormat('d1', 'date');
+        $this->addFormat('t1', 'time');
+        $this->addFormat('c', 'change');
+        $this->addFormat('o', 'open');
+        $this->addFormat('h', 'high');
+        $this->addFormat('g', 'low');
+        $this->addFormat('v', 'volume');
     }
 
     /**
@@ -131,18 +131,29 @@ class YahooFinance
      */
     public function setFormat($array)
     {
+        unset($this->format);
         $this->format[] = $array;
+    }
+
+    /**
+     * Remove parameters/format.
+     *
+     * @return void
+     */
+    public function removeFormat()
+    {
+        unset($this->format);
+        $this->format = array();
     }
 
     /**
      * Get Stock Data
      *
-     * @return array
+     * @param string $symbol
+     * @return object
      */
-    public function getQuotes()
+    public function getQuotes($symbol)
     {
-        $BASE_URL = "http://query.yahooapis.com/v1/public/yql";
-
         $paramsString = "";
         $columnsString = "";
         $stocksString = "";
@@ -157,19 +168,11 @@ class YahooFinance
             }
         }
 
-        foreach ($this->stocks as $stock) {
-            if ($stock !== end($this->stocks)) {
-                $stocksString .= $stock . ",";
-            } else {
-                $stocksString .= $stock;
-            }
-        }
-
         $result = [];
 
-        if ($paramsString != "" && $columnsString != "" && $stocksString != "") {
-            $yql_query = "select * from csv where url='http://download.finance.yahoo.com/d/quotes.csv?s=$stocksString&f=$paramsString&e=.csv' and columns='$columnsString'";
-            $yql_query_url = $BASE_URL . "?q=" . urlencode($yql_query) . "&format=json";
+        if ($paramsString != "" && $columnsString != "") {
+            $yql_query = "select * from csv where url='http://download.finance.yahoo.com/d/quotes.csv?s=$symbol&f=$paramsString&e=.csv' and columns='$columnsString'";
+            $yql_query_url = self::BASE_URL . "?q=" . urlencode($yql_query) . "&format=json";
             // Make call with cURL
             $session = curl_init($yql_query_url);
             curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
@@ -180,5 +183,30 @@ class YahooFinance
             return $result->query->results->row;
         }
         return $result;
+    }
+
+    /**
+     * Get Stock Data
+     *
+     * @param string $symbol
+     * @param int $begin
+     * @param int $end
+     * @return object
+     */
+    public function getHistoryQuote($symbol, $begin = 30, $end = 0)
+    {
+        $begin = Date('Y-m-d', strtotime("-{$begin} days"));
+        $end = Date('Y-m-d', strtotime("-{$end} days"));
+
+        $yql_query = "select * from yahoo.finance.historicaldata where symbol = '$symbol' and startDate = '$begin' and endDate = '$end'";
+        $yql_query_url = self::BASE_URL . "?q=" . urlencode($yql_query) . "&diagnostics=true&env=store://datatables.org/alltableswithkeys&format=json&callback=";
+        // Make call with cURL
+        $session = curl_init($yql_query_url);
+        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+        $json = curl_exec($session);
+        // Convert JSON to PHP object
+        $result = json_decode($json);
+
+        return $result->query->results->quote;
     }
 }

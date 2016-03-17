@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('app.site', [])
-    .config(['$stateProvider', function ($stateProvider) {
+angular.module('app.site', ["chart.js"])
+    .config(['$stateProvider', 'ChartJsProvider', function ($stateProvider, ChartJsProvider) {
         $stateProvider
             .state('site', {
                 abstract: true,
@@ -28,4 +28,13 @@ angular.module('app.site', [])
                     }
                 }
             });
+
+        ChartJsProvider.setOptions({
+            colours: ['#FF5252', '#FF8A80'],
+            responsive: true
+        });
+        // Configure all line charts
+        ChartJsProvider.setOptions('Line', {
+            datasetFill: false
+        });
     }]);

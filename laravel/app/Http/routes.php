@@ -8,7 +8,10 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('login', 'AuthenticateController@login');
     Route::post('register', 'AuthenticateController@register');
     Route::get('profile', 'ProfileController@index');
-    Route::get('stock', 'StockController@index');
+
+    Route::get('stocks', 'StockController@index');
+    Route::get('stocks/{symbol}', 'StockController@show');
+    Route::get('stocks/{symbol}/history', 'StockController@history');
 
     Route::get('pages', 'PageController@index');
     Route::get('pages/{uri}', 'PageController@show');

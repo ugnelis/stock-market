@@ -66,7 +66,8 @@ module.exports = function (grunt) {
                 files: {
                     'dist/css/dep.css': [
                         'bower_components/angular-loading-bar/build/loading-bar.css',
-                        'bower_components/bootstrap/dist/css/bootstrap.css'
+                        'bower_components/bootstrap/dist/css/bootstrap.css',
+                        'bower_components/angular-chart.js/dist/angular-chart.css'
                     ]
                 }
             },
@@ -92,6 +93,8 @@ module.exports = function (grunt) {
                         'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
                         'bower_components/angular-loading-bar/build/loading-bar.js',
                         'bower_components/angular-ui-router/release/angular-ui-router.js',
+                        'bower_components/Chart.js/Chart.js',
+                        'bower_components/angular-chart.js/dist/angular-chart.js',
                         'bower_components/jquery/dist/jquery.js'
                     ]
                 }
@@ -116,7 +119,7 @@ module.exports = function (grunt) {
                 //flatten: true
             },
             fonts: {
-                cwd: 'bower_components/themify-icons/fonts',
+                cwd: 'bower_components/bootstrap/fonts',
                 src: '**/*',
                 dest: 'dist/fonts',
                 expand: true,

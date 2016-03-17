@@ -1,0 +1,53 @@
+<div class="page-header">
+    <h1>{{stock.heading}}</h1>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>${{stock.price}}</h2>0.91(0.87%)
+                    <hr role="presentation" class="divider"/>
+                    <div class="col-md-4">
+                        <p><strong>Bid</strong> 1.000</p>
+                        <p><strong>Ask</strong> 1.010</p>
+                        <p><strong>High</strong> 1.010</p>
+                        <p><strong>Low</strong> 1.000</p>
+                        <p><strong>Avg</strong> 1.002</p>
+                        <p><strong>Open</strong> 1.000</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Trades</strong> 6</p>
+                        <p><strong>Volume</strong> 1501</p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Last Trades</div>
+                <div class="panel-body">
+                    ...
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Actions</div>
+                <div class="panel-body">
+                    <button type="button" class="btn btn-default btn-block">
+                        <span class="glyphicon glyphicon-download" aria-hidden="true"></span> Buy
+                    </button>
+                    <button type="button" class="btn btn-default btn-block">
+                        <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Sell
+                    </button>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">History</div>
+                <div class="panel-body">
+                    <canvas id="line" class="chart chart-line" chart-data="stock.data" chart-labels="stock.labels"
+                            chart-legend="true" chart-series="stock.series"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
