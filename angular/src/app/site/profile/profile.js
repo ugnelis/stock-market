@@ -9,6 +9,16 @@ angular.module('app.site')
                 data: {
                     roles: ['user']
                 },
+                resolve: {
+                    data: ['$http', 'API',
+                        function ($http, API) {
+                            return $http.get(API.PROFILE)
+                                .then(function (response) {
+                                    return response.data;
+                                });
+                        }
+                    ]
+                },
                 views: {
                     'content': {
                         templateUrl: 'app/site/profile/profile.html',

@@ -1,12 +1,7 @@
 'use strict';
 
 angular.module('app.site')
-    .controller('SiteAboutController', ['$scope', 'pages', function ($scope, pages) {
-        var self = this;
-
-        pages.getPage('about')
-            .then(function (data) {
-                self.heading = data.heading;
-                self.content = data.content;
-            });
+    .controller('SiteAboutController', ['$scope', 'data', function ($scope, data) {
+        this.heading = data.heading;
+        this.content = data.content;
     }]);

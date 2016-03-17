@@ -9,6 +9,13 @@ angular.module('app.site')
                 data: {
                     roles: []
                 },
+                resolve: {
+                    data: ['pages',
+                        function (pages) {
+                            return pages.getPage('home');
+                        }
+                    ]
+                },
                 views: {
                     'content': {
                         templateUrl: 'app/site/home/home.html',

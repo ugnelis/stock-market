@@ -9,6 +9,13 @@ angular.module('app.site')
                 data: {
                     roles: []
                 },
+                resolve: {
+                    data: ['pages',
+                        function (pages) {
+                            return pages.getPage('about');
+                        }
+                    ]
+                },
                 views: {
                     'content': {
                         templateUrl: 'app/site/about/about.html',
