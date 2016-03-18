@@ -9,6 +9,13 @@ angular.module('app.site')
                 data: {
                     roles: []
                 },
+                resolve: {
+                    data: ['stock',
+                        function (stock) {
+                            return stock.getIndex();
+                        }
+                    ]
+                },
                 views: {
                     'content': {
                         templateUrl: 'app/site/stocks/stocks.html',

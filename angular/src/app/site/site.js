@@ -1,6 +1,9 @@
 'use strict';
 
-angular.module('app.site', ["chart.js"])
+angular.module('app.site', [
+        'ngAnimate',
+        'chart.js'
+    ])
     .config(['$stateProvider', 'ChartJsProvider', function ($stateProvider, ChartJsProvider) {
         $stateProvider
             .state('site', {

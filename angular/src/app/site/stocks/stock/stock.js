@@ -20,8 +20,7 @@ angular.module('app.site')
                     ],
                     history: ['$stateParams', 'stock',
                         function ($stateParams, stock) {
-                            var result = stock.getStockHistory($stateParams.symbol);
-                            return result;
+                            return stock.getStockHistory($stateParams.symbol);
                         }
                     ]
                 },

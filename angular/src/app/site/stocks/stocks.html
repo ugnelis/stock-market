@@ -2,5 +2,23 @@
     <h1>Stocks</h1>
 </div>
 <div>
-    <div stockstable></div>
+    <table class="table table-striped stockstable">
+        <thead>
+        <tr>
+            <th>Company</th>
+            <th>Last Sale*</th>
+            <th>Price Change Net / %</th>
+            <th>Volume % Change</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="stock in stocks.stocks">
+            <td><a ui-sref="stocks.unit({ symbol: stock.symbol })">{{stock.name}} ({{stock.symbol | uppercase}})</a>
+            </td>
+            <td>${{stock.price}}</td>
+            <td ng-class="{ success: stock.change[0] == '+', danger: stock.change[0] == '-' }">{{stock.change}}</td>
+            <td>{{stock.volume | number}}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>

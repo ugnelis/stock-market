@@ -142,3 +142,16 @@ body {
 .view-frame.ng-leave-active {
     opacity: 0;
 }
+
+/* animate-on-change */
+
+[animate-on-change] {
+    transition: all 1s;
+    -webkit-transition: all 1s;
+}
+
+[animate-on-change].changed {
+    background-color: rgb(250, 255, 140);
+    transition: none;
+    -webkit-transition: none;
+}

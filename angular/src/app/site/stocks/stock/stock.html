@@ -6,19 +6,23 @@
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h2>${{stock.price}}</h2>0.91(0.87%)
+                    <h2 animate-on-change="stock.price">{{stock.price}}</h2>
+                    <div ng-class="{ 'text-success': stock.currentChange[0] != '-', 'text-danger': stock.currentChange[0] == '-' }"
+                         animate-on-change="stock.currentChange">
+                        {{stock.currentChange}}({{stock.currentChangeInPercent}})
+                    </div>
                     <hr role="presentation" class="divider"/>
                     <div class="col-md-4">
-                        <p><strong>Bid</strong> 1.000</p>
-                        <p><strong>Ask</strong> 1.010</p>
-                        <p><strong>High</strong> 1.010</p>
-                        <p><strong>Low</strong> 1.000</p>
-                        <p><strong>Avg</strong> 1.002</p>
-                        <p><strong>Open</strong> 1.000</p>
+                        <p><strong>Bid</strong> ...</p>
+                        <p><strong>Ask</strong> ...</p>
+                        <p><strong>High</strong> {{stock.high}}</p>
+                        <p><strong>Low</strong> {{stock.low}}</p>
+                        <p><strong>Prev Close</strong> {{stock.close}}</p>
+                        <p><strong>Open</strong> {{stock.open}}</p>
                     </div>
                     <div class="col-md-4">
-                        <p><strong>Trades</strong> 6</p>
-                        <p><strong>Volume</strong> 1501</p>
+                        <p><strong>Trades</strong> ...</p>
+                        <p><strong>Volume</strong> {{stock.volume}}</p>
                     </div>
                 </div>
             </div>
