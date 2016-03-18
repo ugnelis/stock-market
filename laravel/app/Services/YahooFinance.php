@@ -19,6 +19,7 @@ class YahooFinance
         $this->addFormat('t1', 'time');
         $this->addFormat('c', 'change');
         $this->addFormat('o', 'open');
+        $this->addFormat('p', 'close');
         $this->addFormat('h', 'high');
         $this->addFormat('g', 'low');
         $this->addFormat('v', 'volume');

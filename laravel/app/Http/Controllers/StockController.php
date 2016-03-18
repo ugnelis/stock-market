@@ -25,7 +25,6 @@ class StockController extends Controller
     public function index()
     {
         $yahooFinance = new YahooFinance();
-
         return response()->json($yahooFinance->getQuotes("msft,amzn,yhoo,goog,aapl"));
     }
 
@@ -38,7 +37,6 @@ class StockController extends Controller
     public function show($symbol)
     {
         $yahooFinance = new YahooFinance();
-
         return response()->json($yahooFinance->getQuotes($symbol));
     }
 
@@ -51,7 +49,6 @@ class StockController extends Controller
     public function history($symbol)
     {
         $yahooFinance = new YahooFinance();
-
-        return response()->json($yahooFinance->getHistoryQuote($symbol, 7));
+        return response()->json($yahooFinance->getHistoryQuote($symbol, 9));
     }
 }
