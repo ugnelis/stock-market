@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Roles table seeded!');
         $this->call('PagesTableSeeder');
         $this->command->info('Pages table seeded!');
+        $this->call('StocksTableSeeder');
+        $this->command->info('Stocks table seeded!');
 
         Model::reguard();
     }
