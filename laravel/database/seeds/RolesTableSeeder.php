@@ -28,10 +28,13 @@ class RolesTableSeeder extends Seeder
         $userRole->name = 'user';
         $userRole->save();
 
-        $user = User::find(1);
+        $user = User::where('name', 'Ugnius')->first();
 
         $user->attachRole($ownerRole);
         $user->attachRole($moderatorRole);
+        $user->attachRole($userRole);
+
+        $user = User::where('name', 'Test')->first();
         $user->attachRole($userRole);
     }
 }
