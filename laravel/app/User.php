@@ -34,4 +34,9 @@ class User extends Authenticatable
 
         $this->fill($attributes);
     }
+
+    public function inventories()
+    {
+        return $this->hasMany('App\Inventory', 'user_id', 'id');
+    }
 }

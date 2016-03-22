@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Pages table seeded!');
         $this->call('StocksTableSeeder');
         $this->command->info('Stocks table seeded!');
+        $this->call('InventoriesTableSeeder');
+        $this->command->info('Inventories table seeded!');
 
         Model::reguard();
     }
