@@ -18,4 +18,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('pages', 'PageController@store');
     Route::put('pages/{id}', 'PageController@update');
     Route::delete('pages/{id}', 'PageController@destroy');
+
+    Route::get('market/inventory', 'MarketController@inventory');
 });
