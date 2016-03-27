@@ -9,7 +9,8 @@ angular.module('app')
             REGISTER: server + "register/",
             PROFILE: server + "profile/",
             PAGES: server + "pages/",
-            STOCKS: server + "stocks/"
+            STOCKS: server + "stocks/",
+            MARKET: server + "market/"
         }
     })())
     .constant('APP_ROLES', {

@@ -10,12 +10,25 @@ angular.module('app.site')
                     roles: ['user']
                 },
                 resolve: {
-                    data: ['$http', 'API',
+                    profile: ['$http', 'API',
                         function ($http, API) {
                             return $http.get(API.PROFILE)
                                 .then(function (response) {
                                     return response.data;
                                 });
+                        }
+                    ],
+                    inventory: ['market',
+                        function (market) {
+                            return market.getInventory();
+                        }
+                    ],
+                    stock: ['$stateParams', 'stock', 'inventory',
+                        function ($stateParams, stock, inventory) {
+                            var symbols = inventory.map(function (array) {
+                                return array.symbol;
+                            });
+                            return stock.getStock(symbols.toString());
                         }
                     ]
                 },

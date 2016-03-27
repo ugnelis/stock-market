@@ -2,20 +2,58 @@
     <h1>Profile</h1>
 </div>
 <div class="row">
-    <div class="col-sm-6 col-md-4 col-md-offset-4">
-        <form class="form-horizontal" role="form">
-            <div class="form-group">
-                <label>Name:</label>
-                <div>
-                    <input class="form-control" value="{{profile.name}}" type="text">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">User Details</h3></div>
+            <div class="panel-body">
+                <div class="col-sm-6 col-md-4 col-md-offset-4">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <div>
+                                <input class="form-control" value="{{profile.profile.name}}" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <div>
+                                <input class="form-control" value="{{profile.profile.email}}" type="text">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="form-group">
-                <label>Email:</label>
-                <div>
-                    <input class="form-control" value="{{profile.email}}" type="text">
-                </div>
-            </div>
-        </form>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Inventory</h3></div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="col-md-3">Company</th>
+                    <th class="col-md-2">Price</th>
+                    <th class="col-md-2">Quantity</th>
+                    <th class="col-md-3">Worth</th>
+                    <th class="col-md-2">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="stock in profile.stocks">
+                    <td><a ui-sref="stocks.unit({ symbol: stock.symbol })">{{stock.name}} ({{stock.symbol |
+                        uppercase}})</a></td>
+                    <td>${{stock.price}}</td>
+                    <td>{{stock.quantity}}</td>
+                    <td>${{stock.worth}}</td>
+                    <td>
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-download" aria-hidden="true"></span> Buy
+                        </button>
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Sell
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
