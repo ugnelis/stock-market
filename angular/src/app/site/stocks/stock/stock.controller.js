@@ -17,7 +17,7 @@ angular.module('app.site')
             this.volume = $filter('number')(data.volume);
 
             // update
-            $interval(function () {
+            this.timer = $interval(function () {
                 stock.getStock(data.symbol)
                     .then(function (data) {
                         self.price = $filter('currency')(data.price, '$', 2);
@@ -25,6 +25,12 @@ angular.module('app.site')
                         self.currentChangeInPercent = $filter('number')((data.price / data.close - 1) * 100, 2) + '%';
                     });
             }, 3000);
+
+            $scope.$on("$destroy", function () {
+                if (angular.isDefined(self.timer)) {
+                    $interval.cancel(self.timer);
+                }
+            });
 
             // line chart
             this.labels = history.map(function (a) {
