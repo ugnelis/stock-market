@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+
 use App\Services\YahooFinance;
+use App\Transaction;
+use App\Stock;
 
 class StockController extends Controller
 {
@@ -50,5 +53,29 @@ class StockController extends Controller
     {
         $yahooFinance = new YahooFinance();
         return response()->json($yahooFinance->getHistoryQuote($symbol, 9));
+    }
+
+    /**
+     * Display the specified stock transactions history.
+     *
+     * @param  string $symbol
+     * @return Response
+     */
+    public function transactions($symbol)
+    {
+        $stock = Stock::where('symbol', '=', strtolower($symbol))->first();
+
+        $result = [];
+        $transactions = $stock->transactions;
+        foreach ($transactions as $transaction) {
+            $result[] = [
+                'symbol' => $transaction->stock->symbol,
+                'price' => $transaction->price,
+                'quantity' => $transaction->quantity,
+                'time' => $transaction->created_at->toDateTimeString()
+            ];
+        }
+
+        return response()->json($result);
     }
 }

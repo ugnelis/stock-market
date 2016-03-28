@@ -12,6 +12,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('stocks', 'StockController@index');
     Route::get('stocks/{symbol}', 'StockController@show');
     Route::get('stocks/{symbol}/history', 'StockController@history');
+    Route::get('stocks/{symbol}/transactions', 'StockController@transactions');
 
     Route::get('pages', 'PageController@index');
     Route::get('pages/{uri}', 'PageController@show');

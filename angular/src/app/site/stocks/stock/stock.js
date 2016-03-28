@@ -22,6 +22,11 @@ angular.module('app.site')
                         function ($stateParams, stock) {
                             return stock.getStockHistory($stateParams.symbol);
                         }
+                    ],
+                    transactions: ['$stateParams', 'stock',
+                        function ($stateParams, stock) {
+                            return stock.getTransactions($stateParams.symbol);
+                        }
                     ]
                 },
                 views: {

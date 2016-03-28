@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('app.site')
-    .controller('SiteStockController', ['$scope', '$state', '$interval', '$filter', 'data', 'history', 'stock',
-        function ($scope, $state, $interval, $filter, data, history, stock) {
+    .controller('SiteStockController', ['$scope', '$state', '$interval', '$filter', 'data', 'history', 'transactions', 'stock',
+        function ($scope, $state, $interval, $filter, data, history, transactions, stock) {
             var self = this;
 
             // resolved data
@@ -15,6 +15,11 @@ angular.module('app.site')
             this.close = data.close;
             this.open = data.open;
             this.volume = $filter('number')(data.volume);
+
+            this.transactions = transactions;
+            for (var i = 0; i < this.transactions.length; i++) {
+                this.transactions[i].worth = this.transactions[i].quantity * this.transactions[i].price;
+            }
 
             // update
             this.timer = $interval(function () {

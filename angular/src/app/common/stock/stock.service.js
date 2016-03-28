@@ -24,6 +24,13 @@ angular.module('app')
                             return response.data;
                         });
                     return promise;
+                },
+                getTransactions: function (symbol) {
+                    var promise = $http.get(API.STOCKS + symbol + "/transactions")
+                        .then(function (response) {
+                            return response.data;
+                        });
+                    return promise;
                 }
             };
             return stock;
