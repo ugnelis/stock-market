@@ -20,4 +20,9 @@ class Stock extends Model
     {
         return $this->hasMany('App\Transaction', 'stock_id', 'id');
     }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Order', 'stock_id', 'id');
+    }
 }

@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Transactions table seeded!');
         $this->call('AccountsTableSeeder');
         $this->command->info('Accounts table seeded!');
+        $this->call('OrdersTableSeeder');
+        $this->command->info('Orders table seeded!');
 
         Model::reguard();
     }

@@ -3,11 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 
 class Page extends Model implements SluggableInterface
 {
+    use SoftDeletes;
     use SluggableTrait;
 
     /**
@@ -16,10 +18,7 @@ class Page extends Model implements SluggableInterface
     const DRAFT = 'DRAFT';
     const APPROVED = 'APPROVED';
 
-    /**
-     * @var bool
-     */
-    protected $softDelete = true;
+    protected $dates = ['deleted_at'];
 
     /**
      * Used for Cviebrock/EloquentSluggable
