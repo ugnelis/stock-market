@@ -10,6 +10,13 @@ angular.module('app')
                             return response.data;
                         });
                     return promise;
+                },
+                getAccount: function () {
+                    var promise = $http.get(API.MARKET + 'account')
+                        .then(function (response) {
+                            return response.data;
+                        });
+                    return promise;
                 }
             };
             return market;

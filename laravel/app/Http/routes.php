@@ -21,4 +21,5 @@ Route::group(['prefix' => 'api'], function () {
     Route::delete('pages/{id}', 'PageController@destroy');
 
     Route::get('market/inventory', 'MarketController@inventory');
+    Route::get('market/account', 'MarketController@account');
 });

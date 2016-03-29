@@ -1,12 +1,14 @@
 'use strict';
 
 angular.module('app.site')
-    .controller('SiteProfileController', ['$scope', '$interval', '$filter', 'profile', 'inventory', 'stocks', 'stock',
-        function ($scope, $interval, $filter, profile, inventory, stocks, stock) {
+    .controller('SiteProfileController', ['$scope', '$interval', '$filter', 'profile', 'inventory', 'account', 'stocks', 'stock',
+        function ($scope, $interval, $filter, profile, inventory, account, stocks, stock) {
             var self = this;
 
             this.profile = profile;
             this.inventory = inventory;
+            this.account = account;
+            this.account.balance = $filter('currency')(this.account.balance, '$', 2);
 
             this.stocks = stocks;
             for (var i = 0; i < this.stocks.length; i++) {

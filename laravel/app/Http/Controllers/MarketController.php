@@ -42,4 +42,18 @@ class MarketController extends Controller
 
         return response()->json($result);
     }
+
+    /**
+     * Get account.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function account()
+    {
+        $user = Auth::user();
+        $result = [
+            'balance' => $user->account->balance
+        ];
+        return response()->json($result);
+    }
 }

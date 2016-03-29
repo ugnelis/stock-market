@@ -23,6 +23,11 @@ angular.module('app.site')
                             return market.getInventory();
                         }
                     ],
+                    account: ['market',
+                        function (market) {
+                            return market.getAccount();
+                        }
+                    ],
                     stocks: ['$stateParams', 'stock', 'inventory',
                         function ($stateParams, stock, inventory) {
                             var symbols = inventory.map(function (array) {

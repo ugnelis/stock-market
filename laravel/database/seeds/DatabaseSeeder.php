@@ -26,6 +26,9 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Inventories table seeded!');
         $this->call('TransactionsTableSeeder');
         $this->command->info('Transactions table seeded!');
+        $this->call('AccountsTableSeeder');
+        $this->command->info('Accounts table seeded!');
+
         Model::reguard();
     }
 }
