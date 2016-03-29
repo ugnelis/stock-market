@@ -33,6 +33,7 @@ class MarketController extends Controller
         $user = Auth::user();
 
         $stocks = $user->inventories()->with('stock')->get();
+        $result = array();
         foreach ($stocks as $stock) {
             $result[] = [
                 'symbol' => $stock->stock->symbol,

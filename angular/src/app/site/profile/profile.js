@@ -33,6 +33,10 @@ angular.module('app.site')
                             var symbols = inventory.map(function (array) {
                                 return array.symbol;
                             });
+
+                            if (symbols.toString() == "")
+                                return [];
+
                             return stock.getStock(symbols.toString());
                         }
                     ]

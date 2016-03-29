@@ -13,6 +13,7 @@ use JWTAuth;
 use TymonJWTAuthExceptionsJWTException;
 use App\User;
 use App\Role;
+use App\Account;
 
 class AuthenticateController extends Controller
 {
@@ -73,10 +74,16 @@ class AuthenticateController extends Controller
             $user = User::create([
                 'name' => Input::get('name'),
                 'email' => Input::get('email'),
-                'password' => bcrypt(Input::get('heading'))
+                'password' => bcrypt(Input::get('password'))
             ]);
-            $userRole = Role::where('name', '=', 'user')->first();
+
+            $userRole = Role::where('name', 'user')->first();
             $user->attachRole($userRole);
+
+            $account = new Account();
+            $account->balance = 1000; // for new comers
+            $user->account()->save($account);
+
         } catch (\Exception $e) {
             return response()->json(['error' => 'User already exists.'], Response::HTTP_CONFLICT);
         }

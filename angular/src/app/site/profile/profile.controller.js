@@ -10,8 +10,14 @@ angular.module('app.site')
             this.account = account;
             this.account.balance = $filter('currency')(this.account.balance, '$', 2);
 
-            this.stocks = stocks;
-            for (var i = 0; i < this.stocks.length; i++) {
+            if (!Array.isArray(stocks)) {
+                this.stocks = [];
+                this.stocks.push(stocks);
+            } else {
+                this.stocks = stocks;
+            }
+
+            for (var i = 0; i < this.inventory.length; i++) {
                 this.stocks[i].quantity = inventory[i].quantity;
                 this.stocks[i].worth = inventory[i].quantity * this.stocks[i].price;
 
