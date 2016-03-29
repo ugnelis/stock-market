@@ -40,9 +40,9 @@
                 <tr ng-repeat="stock in profile.stocks">
                     <td><a ui-sref="stocks.unit({ symbol: stock.symbol })">{{stock.name}} ({{stock.symbol |
                         uppercase}})</a></td>
-                    <td>${{stock.price}}</td>
+                    <td animate-on-change="stock.price">{{stock.price}}</td>
                     <td>{{stock.quantity}}</td>
-                    <td>${{stock.worth}}</td>
+                    <td>{{stock.worth}}</td>
                     <td>
                         <button type="button" class="btn btn-default">
                             <span class="glyphicon glyphicon-download" aria-hidden="true"></span> Buy
