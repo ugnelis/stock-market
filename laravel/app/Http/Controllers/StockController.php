@@ -63,7 +63,7 @@ class StockController extends Controller
      */
     public function transactions($symbol)
     {
-        $stock = Stock::where('symbol', '=', strtolower($symbol))->first();
+        $stock = Stock::where('symbol', strtolower($symbol))->first();
 
         $result = [];
         $transactions = $stock->transactions;
@@ -73,6 +73,33 @@ class StockController extends Controller
                 'price' => $transaction->price,
                 'quantity' => $transaction->quantity,
                 'time' => $transaction->created_at->toDateTimeString()
+            ];
+        }
+
+        return response()->json($result);
+    }
+
+    /**
+     * Display the specified stock orders.
+     *
+     * @param  string $symbol
+     * @return Response
+     */
+    public function orders($symbol)
+    {
+        $stock = Stock::where('symbol', strtolower($symbol))->first();
+
+        $result = [];
+        $orders = $stock->orders;
+        foreach ($orders as $order) {
+            $result[] = [
+                'id' => $order->id,
+                'symbol' => $order->stock->symbol,
+                'side' => $order->side,
+                'price' => $order->price,
+                'quantity' => $order->quantity,
+                'order' => $order->order,
+                'time' => $order->created_at->toDateTimeString()
             ];
         }
 

@@ -13,6 +13,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('stocks/{symbol}', 'StockController@show');
     Route::get('stocks/{symbol}/history', 'StockController@history');
     Route::get('stocks/{symbol}/transactions', 'StockController@transactions');
+    Route::get('stocks/{symbol}/orders', 'StockController@orders');
 
     Route::get('pages', 'PageController@index');
     Route::get('pages/{uri}', 'PageController@show');
@@ -22,4 +23,7 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::get('market/inventory', 'MarketController@inventory');
     Route::get('market/account', 'MarketController@account');
+    Route::post('market/submit', 'MarketController@submitOrder');
+    Route::post('market/accept', 'MarketController@acceptOrder');
+    Route::post('market/accept', 'MarketController@removeOrder');
 });
