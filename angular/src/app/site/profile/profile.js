@@ -10,22 +10,20 @@ angular.module('app.site')
                     roles: ['user']
                 },
                 resolve: {
-                    profile: ['$http', 'API',
-                        function ($http, API) {
-                            return $http.get(API.PROFILE)
-                                .then(function (response) {
-                                    return response.data;
-                                });
+                    index: ['profile',
+                        function (profile) {
+                            return profile.getIndex();
                         }
                     ],
-                    inventory: ['market',
-                        function (market) {
-                            return market.getInventory();
+                    inventory: ['profile',
+                        function (profile) {
+                            console.log(profile);
+                            return profile.getInventory();
                         }
                     ],
-                    account: ['market',
-                        function (market) {
-                            return market.getAccount();
+                    account: ['profile',
+                        function (profile) {
+                            return profile.getAccount();
                         }
                     ],
                     stocks: ['$stateParams', 'stock', 'inventory',

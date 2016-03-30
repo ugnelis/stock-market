@@ -1,24 +1,31 @@
 "use strict";
 
 angular.module('app')
-    .factory('market', ['$http', 'API',
+    .factory('profile', ['$http', 'API',
         function ($http, API) {
-            var market = {
+            var profile = {
+                getIndex: function () {
+                    var promise = $http.get(API.PROFILE)
+                        .then(function (response) {
+                            return response.data;
+                        });
+                    return promise;
+                },
                 getInventory: function () {
-                    var promise = $http.get(API.MARKET + 'inventory')
+                    var promise = $http.get(API.PROFILE + 'inventory')
                         .then(function (response) {
                             return response.data;
                         });
                     return promise;
                 },
                 getAccount: function () {
-                    var promise = $http.get(API.MARKET + 'account')
+                    var promise = $http.get(API.PROFILE + 'account')
                         .then(function (response) {
                             return response.data;
                         });
                     return promise;
                 }
             };
-            return market;
+            return profile;
         }
     ]);

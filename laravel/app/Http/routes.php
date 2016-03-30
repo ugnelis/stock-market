@@ -7,7 +7,6 @@ Route::get('/', function () {
 Route::group(['prefix' => 'api'], function () {
     Route::post('login', 'AuthenticateController@login');
     Route::post('register', 'AuthenticateController@register');
-    Route::get('profile', 'ProfileController@index');
 
     Route::get('stocks', 'StockController@index');
     Route::get('stocks/{symbol}', 'StockController@show');
@@ -21,9 +20,11 @@ Route::group(['prefix' => 'api'], function () {
     Route::put('pages/{id}', 'PageController@update');
     Route::delete('pages/{id}', 'PageController@destroy');
 
-    Route::get('market/inventory', 'MarketController@inventory');
-    Route::get('market/account', 'MarketController@account');
-    Route::post('market/submit', 'MarketController@submitOrder');
-    Route::post('market/accept', 'MarketController@acceptOrder');
-    Route::post('market/accept', 'MarketController@removeOrder');
+    Route::get('profile', 'ProfileController@index');
+    Route::get('profile/inventory', 'ProfileController@inventory');
+    Route::get('profile/account', 'ProfileController@account');
+
+    Route::post('orders/submit', 'OrderController@submit');
+    Route::post('orders/accept', 'OrderController@accept');
+    Route::delete('orders/{id}/remove', 'OrderController@remove');
 });

@@ -8,14 +8,13 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
-use App\Services\YahooFinance;
 use JWTAuth;
 use TymonJWTAuthExceptionsJWTException;
 use Auth;
 use App\Stock;
 use App\Order;
 
-class MarketController extends Controller
+class OrderController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -28,46 +27,11 @@ class MarketController extends Controller
     }
 
     /**
-     * Get inventory.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function inventory()
-    {
-        $user = Auth::user();
-
-        $stocks = $user->inventories()->with('stock')->get();
-        $result = array();
-        foreach ($stocks as $stock) {
-            $result[] = [
-                'symbol' => $stock->stock->symbol,
-                'quantity' => $stock->quantity,
-            ];
-        }
-
-        return response()->json($result);
-    }
-
-    /**
-     * Get account.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function account()
-    {
-        $user = Auth::user();
-        $result = [
-            'balance' => $user->account->balance
-        ];
-        return response()->json($result);
-    }
-
-    /**
      * Submit an order.
      *
      * @return \Illuminate\Http\Response
      */
-    public function submitOrder(Request $reques)
+    public function submit(Request $reques)
     {
         $user = Auth::user();
         $rules = array(
@@ -134,7 +98,7 @@ class MarketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function acceptOrder(Request $reques)
+    public function accept(Request $reques)
     {
 
     }
@@ -144,8 +108,17 @@ class MarketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function removeOrder(Request $reques)
+    public function remove($id)
     {
+        $user = Auth::user();
+        $order = $user->orders()->find($id);
 
+        // Check if user has rights
+        if (!$user->hasRole(['owner', 'moderator']) || $order === null) {
+            return response()->json(['error' => 'You don&#39;t have permission to access.'], Response::HTTP_FORBIDDEN);
+        }
+        $order->delete();
+
+        return response()->json(['success' => 'Order is removed.']);
     }
 }
