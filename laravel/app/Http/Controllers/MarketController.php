@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
@@ -72,8 +73,8 @@ class MarketController extends Controller
         $rules = array(
             'symbol' => 'required|string',
             'side' => 'required|string',
-            'price' => 'required|integer|min:0',
-            'quantity' => 'required|numeric|min:1',
+            'price' => 'required|numeric|min:0',
+            'quantity' => 'required|integer|min:1',
             'order' => 'required|string'
         );
         $validator = Validator::make(Input::all(), $rules);
@@ -106,25 +107,26 @@ class MarketController extends Controller
             // if user doesn't have enough quantity of stocks
             if (Input::get('quantity') + $quantityInUse > $inventory->quantity)
                 return response()->json(['error' => 'Submitted quantity of stock does not exist or is in use.'], Response::HTTP_CONFLICT);
+        } // if user wants to buy
+        else if (Input::get('side') == 'BUY') {
+            // current balance which used in orders
+            $balanceInUse = $user->orders()->where('side', 'BUY')->where('stock_id', $stock->id)->sum(DB::raw('quantity * price'));
 
-            $order = new Order();
-            $order->stock()->associate($stock);
-            $order->user()->associate($user);
-            $order->side = Input::get('side');
-            $order->price = Input::get('price');
-            $order->quantity = Input::get('quantity');
-            $order->order = Input::get('order');
-            $order->save();
-            
-            return response()->json(['success' => 'Order is submited.']);
-        }
+            if (Input::get('quantity') * Input::get('price') + $balanceInUse > $user->account->balance)
+                return response()->json(['error' => ' Not enough balance in your account.'], Response::HTTP_CONFLICT);
+        } else
+            return response()->json(['error' => 'Side is not correct.'], Response::HTTP_CONFLICT);
 
-        // if user wants to buy
-        if (Input::get('side') == 'BUY') {
-            // TODO
-        }
+        $order = new Order();
+        $order->stock()->associate($stock);
+        $order->user()->associate($user);
+        $order->side = Input::get('side');
+        $order->price = Input::get('price');
+        $order->quantity = Input::get('quantity');
+        $order->order = Input::get('order');
+        $order->save();
 
-        return response()->json(['error' => 'Side is not correct.'], Response::HTTP_CONFLICT);
+        return response()->json(['success' => 'Order is submited.']);
     }
 
     /**
