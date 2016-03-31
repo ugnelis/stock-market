@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 use JWTAuth;
 use TymonJWTAuthExceptionsJWTException;
 use Auth;
 use App\Stock;
 use App\Order;
+use App\Inventory;
 
 class OrderController extends Controller
 {
@@ -74,7 +75,7 @@ class OrderController extends Controller
         } // if user wants to buy
         else if (Input::get('side') == 'BUY') {
             // current balance which used in orders
-            $balanceInUse = $user->orders()->where('side', 'BUY')->where('stock_id', $stock->id)->sum(DB::raw('quantity * price'));
+            $balanceInUse = $user->orders()->where('side', 'BUY')->where('stock_id', $stock->id)->sum(DB::raw('price * quantity'));
 
             if (Input::get('quantity') * Input::get('price') + $balanceInUse > $user->account->balance)
                 return response()->json(['error' => ' Not enough balance in your account.'], Response::HTTP_CONFLICT);
@@ -98,8 +99,52 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function accept(Request $reques)
+    public function accept($id)
     {
+        $user = Auth::user();
+        $order = Order::find($id);
+
+        if ($order === null)
+            return response()->json(['error' => 'Order doesn&#39;t exist.'], Response::HTTP_CONFLICT);
+
+        if ($order->user == $user)
+            return response()->json(['error' => 'Accepting order from yourself isn&#39;t not allowed.'], Response::HTTP_CONFLICT);
+
+        // if user wants accept sale
+        if ($order->side = 'SELL') {
+            $worth = $order->price * $order->quantity;
+
+            if ($worth > $user->account->balance)
+                return response()->json(['error' => 'Not enough balance in your account.'], Response::HTTP_CONFLICT);
+
+            $account = $user->account;
+            $account->balance -= $order->price * $order->quantity;
+            $account->save();
+
+            $inventory = Inventory::where('user_id', $user->id)->where('stock_id', $order->stock->id)->first();
+            // create a record if doesn't exit
+            if ($inventory === null) {
+                $inventory = new Inventory();
+                $inventory->stock()->associate($order->stock);
+                $inventory->user()->associate($user);
+                $inventory->quantity = $order->quantity;
+                $inventory->save();
+            }
+            // update the record
+            if ($inventory !== null) {
+                $inventory = Inventory::where('user_id', $user->id)->where('stock_id', $order->stock->id)->first();
+                $inventory->quantity += $order->quantity;
+                $inventory->save();
+            }
+        }
+        // if user wants accept buying
+        if ($order->side = 'BUY') {
+
+        }
+
+        $order->delete();
+
+        return response()->json(['success' => 'Order is accepted.']);
 
     }
 

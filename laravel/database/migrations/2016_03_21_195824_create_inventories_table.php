@@ -13,11 +13,12 @@ class CreateInventoriesTable extends Migration
     public function up()
     {
         Schema::create('inventories', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('stock_id')->unsigned();
             $table->bigInteger('quantity');
 
-            $table->primary(['user_id', 'stock_id']);
+            $table->unique(['user_id', 'stock_id']);
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('restrict')
