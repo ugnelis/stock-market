@@ -110,15 +110,16 @@ class OrderController extends Controller
         if ($order->user == $user)
             return response()->json(['error' => 'Accepting order from yourself isn&#39;t not allowed.'], Response::HTTP_CONFLICT);
 
-        // if user wants accept sale
-        if ($order->side = 'SELL') {
-            $worth = $order->price * $order->quantity;
+        $worth = $order->price * $order->quantity;
 
+        // if user wants accept sale
+        if ($order->side == 'SELL') {
             if ($worth > $user->account->balance)
                 return response()->json(['error' => 'Not enough balance in your account.'], Response::HTTP_CONFLICT);
 
+            // this user
             $account = $user->account;
-            $account->balance -= $order->price * $order->quantity;
+            $account->balance -= $worth;
             $account->save();
 
             $inventory = Inventory::where('user_id', $user->id)->where('stock_id', $order->stock->id)->first();
@@ -130,22 +131,63 @@ class OrderController extends Controller
                 $inventory->quantity = $order->quantity;
                 $inventory->save();
             }
-            // update the record
+            // update inventory
             if ($inventory !== null) {
-                $inventory = Inventory::where('user_id', $user->id)->where('stock_id', $order->stock->id)->first();
+                $inventory->quantity += $order->quantity;
+                $inventory->save();
+            }
+
+            // other user
+            $account = $order->user->account;
+            $account->balance += $worth;
+            $account->save();
+
+            // update other user's inventory
+            $inventory = Inventory::where('user_id', $order->user->id)->where('stock_id', $order->stock->id)->first();
+            $inventory->quantity -= $order->quantity;
+            $inventory->save();
+        }
+        // if user wants accept buying
+        if ($order->side == 'BUY') {
+            $inventory = Inventory::where('user_id', $user->id)->where('stock_id', $order->stock->id)->first();
+
+            if ($order->quanity > $inventory->quantity)
+                return response()->json(['error' => 'Not enough stocks in your account.'], Response::HTTP_CONFLICT);
+
+            // this user
+            $account = $user->account;
+            $account->balance += $worth;
+            $account->save();
+
+            // user's inventory
+            $inventory->quantity -= $order->quantity;
+            $inventory->save();
+
+            // other user
+            $account = $order->user->account;
+            $account->balance -= $worth;
+            $account->save();
+
+            // update other user's inventory
+            $inventory = Inventory::where('user_id', $order->user->id)->where('stock_id', $order->stock->id)->first();
+
+            // create inventory if doesn't exit
+            if ($inventory === null) {
+                $inventory = new Inventory();
+                $inventory->stock()->associate($order->stock);
+                $inventory->user()->associate($order->user);
+                $inventory->quantity = $order->quantity;
+                $inventory->save();
+            }
+            // update inventory
+            if ($inventory !== null) {
                 $inventory->quantity += $order->quantity;
                 $inventory->save();
             }
         }
-        // if user wants accept buying
-        if ($order->side = 'BUY') {
-
-        }
-
         $order->delete();
 
         return response()->json(['success' => 'Order is accepted.']);
-
     }
 
     /**
