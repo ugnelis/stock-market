@@ -26,6 +26,11 @@ angular.module('app.site')
                             return profile.getAccount();
                         }
                     ],
+                    orders: ['profile',
+                        function (profile) {
+                            return profile.getOrders();
+                        }
+                    ],
                     stocks: ['$stateParams', 'stock', 'inventory',
                         function ($stateParams, stock, inventory) {
                             var symbols = inventory.map(function (array) {

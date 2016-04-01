@@ -78,3 +78,36 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Orders</h3></div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="col-md-2">Side</th>
+                    <th class="col-md-2">Symbol</th>
+                    <th class="col-md-2">Price</th>
+                    <th class="col-md-2">Quantity</th>
+                    <th class="col-md-2">Date</th>
+                    <th class="col-md-2">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="order in profile.orders">
+                    <td>{{order.side}}</td>
+                    <td><a ui-sref="stocks.unit({ symbol: order.symbol })">{{order.symbol | uppercase}}</a></td>
+                    <td>{{order.price}}</td>
+                    <td>{{order.quantity}}</td>
+                    <td>{{order.time}}</td>
+                    <td>
+                        <button ng-click="profile.removeOrder(order.id)" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

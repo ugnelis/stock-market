@@ -1,15 +1,31 @@
 'use strict';
 
 angular.module('app.site')
-    .controller('SiteProfileController', ['$scope', '$interval', '$filter', 'index', 'inventory', 'account', 'stocks', 'stock',
-        function ($scope, $interval, $filter, index, inventory, account, stocks, stock) {
+    .controller('SiteProfileController', ['$scope', '$interval', '$filter', 'index', 'inventory', 'account', 'orders', 'order', 'stocks', 'stock',
+        function ($scope, $interval, $filter, index, inventory, account, orders, order, stocks, stock) {
             var self = this;
 
             this.profile = index;
             this.inventory = inventory;
             this.account = account;
+            this.orders = orders;
             this.account.balance = $filter('currency')(this.account.balance, '$', 2);
 
+            for (var i = 0; i < this.orders.length; i++) {
+                this.orders[i].price = $filter('currency')(this.orders[i].price, '$', 2);
+            }
+
+            // remove deleted order from array
+            this.removeOrder = function (index) {
+                order.remove(index)
+                    .then(function (data) {
+                        self.orders = self.orders.filter(function (obj) {
+                            return obj.id !== index;
+                        });
+                    });
+            };
+
+            // format stock inventory
             if (!Array.isArray(stocks)) {
                 this.stocks = [];
                 this.stocks.push(stocks);

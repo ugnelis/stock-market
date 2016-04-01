@@ -24,6 +24,13 @@ angular.module('app')
                             return response.data;
                         });
                     return promise;
+                },
+                getOrders: function () {
+                    var promise = $http.get(API.PROFILE + 'orders')
+                        .then(function (response) {
+                            return response.data;
+                        });
+                    return promise;
                 }
             };
             return profile;

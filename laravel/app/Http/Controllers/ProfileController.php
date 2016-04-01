@@ -64,4 +64,30 @@ class ProfileController extends Controller
         ];
         return response()->json($result);
     }
+
+    /**
+     * Get orders.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function orders()
+    {
+        $user = Auth::user();
+
+        $orders = $user->orders;
+        $result = [];
+        foreach ($orders as $order) {
+            $result[] = [
+                'id' => $order->id,
+                'symbol' => $order->stock->symbol,
+                'side' => $order->side,
+                'price' => $order->price,
+                'quantity' => $order->quantity,
+                'order' => $order->order,
+                'time' => $order->created_at->toDateTimeString()
+            ];
+        };
+
+        return response()->json($result);
+    }
 }

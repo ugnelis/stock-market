@@ -23,6 +23,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('profile', 'ProfileController@index');
     Route::get('profile/inventory', 'ProfileController@inventory');
     Route::get('profile/account', 'ProfileController@account');
+    Route::get('profile/orders', 'ProfileController@orders');
 
     Route::post('orders/submit', 'OrderController@submit');
     Route::post('orders/{id}/accept', 'OrderController@accept');
