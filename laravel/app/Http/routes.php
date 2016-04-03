@@ -26,6 +26,5 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('profile/orders', 'ProfileController@orders');
 
     Route::post('orders/submit', 'OrderController@submit');
-    Route::post('orders/{id}/accept', 'OrderController@accept');
     Route::delete('orders/{id}/remove', 'OrderController@remove');
 });

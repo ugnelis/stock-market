@@ -14,6 +14,7 @@ use Auth;
 use App\Stock;
 use App\Order;
 use App\Inventory;
+use App\Transaction;
 
 class OrderController extends Controller
 {
@@ -91,13 +92,48 @@ class OrderController extends Controller
         $order->order = Input::get('order');
         $order->save();
 
+        if ($this->tradeIfPossible($order->id))
+            return response()->json(['success' => 'Order is made.']);
+
         return response()->json(['success' => 'Order is submited.']);
+    }
+
+    /**
+     * Trade order if it's possible
+     *
+     * @return bool
+     */
+    public function tradeIfPossible($id)
+    {
+        $order = Order::find($id);
+        $allOrders = Order::orderBy('created_at', 'desc')->get();
+
+        foreach ($allOrders as $otherOrder) {
+            if ($order == $otherOrder)
+                continue;
+
+            if ($order->order == "MARKET" && $order->side != $otherOrder->side && $order->stock == $otherOrder->stock && $order->quantity == $otherOrder->quantity) {
+                if ($this->accept($otherOrder->id)) {
+                    $order->delete();
+                    return true;
+                }
+            }
+
+            if ($order->order == "LIMIT" && $order->side != $otherOrder->side && $order->stock == $otherOrder->stock && $order->quantity == $otherOrder->quantity) {
+                if ($this->accept($otherOrder->id)) {
+                    $order->delete();
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
      * Accept an order.
      *
-     * @return \Illuminate\Http\Response
+     * @return bool
      */
     public function accept($id)
     {
@@ -105,17 +141,17 @@ class OrderController extends Controller
         $order = Order::find($id);
 
         if ($order === null)
-            return response()->json(['error' => 'Order doesn&#39;t exist.'], Response::HTTP_CONFLICT);
+            return false;
 
         if ($order->user == $user)
-            return response()->json(['error' => 'Accepting order from yourself isn&#39;t not allowed.'], Response::HTTP_CONFLICT);
+            return false;
 
         $worth = $order->price * $order->quantity;
 
         // if user wants accept sale
         if ($order->side == 'SELL') {
             if ($worth > $user->account->balance)
-                return response()->json(['error' => 'Not enough balance in your account.'], Response::HTTP_CONFLICT);
+                return false;
 
             // this user
             $account = $user->account;
@@ -146,13 +182,23 @@ class OrderController extends Controller
             $inventory = Inventory::where('user_id', $order->user->id)->where('stock_id', $order->stock->id)->first();
             $inventory->quantity -= $order->quantity;
             $inventory->save();
+
+            // add transaction to history
+            $transaction = new Transaction();
+            $transaction->seller()->associate($order->user);
+            $transaction->buyer()->associate($user);
+            $transaction->stock()->associate($order->stock);
+            $transaction->price = $order->price;
+            $transaction->quantity = $order->quantity;
+            $transaction->save();
+
         }
         // if user wants accept buying
         if ($order->side == 'BUY') {
             $inventory = Inventory::where('user_id', $user->id)->where('stock_id', $order->stock->id)->first();
 
             if ($order->quanity > $inventory->quantity)
-                return response()->json(['error' => 'Not enough stocks in your account.'], Response::HTTP_CONFLICT);
+                return false;
 
             // this user
             $account = $user->account;
@@ -184,10 +230,19 @@ class OrderController extends Controller
                 $inventory->quantity += $order->quantity;
                 $inventory->save();
             }
+
+            // add transaction to history
+            $transaction = new Transaction();
+            $transaction->seller()->associate($order->user);
+            $transaction->buyer()->associate($order->stock);
+            $transaction->stock()->associate($user);
+            $transaction->price = $order->price;
+            $transaction->quantity = $order->quantity;
+            $transaction->save();
         }
         $order->delete();
 
-        return response()->json(['success' => 'Order is accepted.']);
+        return true;
     }
 
     /**
