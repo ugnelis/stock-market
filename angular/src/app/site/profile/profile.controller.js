@@ -25,6 +25,11 @@ angular.module('app.site')
                     });
             };
 
+            // open oder form
+            this.openOrderForm = function () {
+                order.openForm();
+            };
+
             // format stock inventory
             if (!Array.isArray(stocks)) {
                 this.stocks = [];

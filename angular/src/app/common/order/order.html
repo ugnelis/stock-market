@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <h3 class="modal-title">Order form</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div alertbox></div>
+            <form class="form-signin" name="orderForm" ng-submit="order.submit()" novalidate>
+                <div class="form-group">
+                    <select class="form-control" ng-model="order.order.side">
+                        <option>SELL</option>
+                        <option>BUY</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="number" name="price" class="form-control" placeholder="Price" min="0" step="0.01"
+                           ng-model="order.order.price"
+                           required/>
+                    <div class="help-block" ng-messages="orderForm.price.$error"
+                         ng-if="orderForm.price.$touched">
+                        <p ng-message="number">Price must be a number.</p>
+                        <p ng-message="min">Price must be positive.</p>
+                        <p ng-message="required">Price is required.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="number" name="quantity" class="form-control" placeholder="Quantity" min="1" step="1"
+                           ng-model="order.order.quantity"
+                           required/>
+                    <div class="help-block" ng-messages="orderForm.quantity.$error"
+                         ng-if="orderForm.quantity.$touched">
+                        <p ng-message="number">Quantity must be an integer.</p>
+                        <p ng-message="min">Quantity must be higher than 0.</p>
+                        <p ng-message="required">Quantity is required.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" ng-model="order.order.symbol">
+                        <option ng-repeat="inventory in order.inventories">{{inventory.symbol | uppercase}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" ng-model="order.order.order">
+                        <option>MARKET</option>
+                        <option>LIMIT</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

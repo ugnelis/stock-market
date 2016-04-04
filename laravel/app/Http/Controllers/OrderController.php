@@ -233,9 +233,9 @@ class OrderController extends Controller
 
             // add transaction to history
             $transaction = new Transaction();
-            $transaction->seller()->associate($order->user);
-            $transaction->buyer()->associate($order->stock);
-            $transaction->stock()->associate($user);
+            $transaction->seller()->associate($user);
+            $transaction->buyer()->associate($order->user);
+            $transaction->stock()->associate($order->stock);
             $transaction->price = $order->price;
             $transaction->quantity = $order->quantity;
             $transaction->save();
