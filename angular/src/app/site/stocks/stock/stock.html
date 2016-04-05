@@ -53,10 +53,12 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">Actions</h3></div>
             <div class="panel-body">
-                <button type="button" class="btn btn-default btn-block">
+                <button ng-click="stock.openOrderForm('BUY', stock.symbol)" type="button"
+                        class="btn btn-default btn-block">
                     <span class="glyphicon glyphicon-download" aria-hidden="true"></span> Buy
                 </button>
-                <button type="button" class="btn btn-default btn-block">
+                <button ng-click="stock.openOrderForm('SELL', stock.symbol)" type="button"
+                        class="btn btn-default btn-block">
                     <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Sell
                 </button>
             </div>

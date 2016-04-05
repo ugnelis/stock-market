@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('app.site')
-    .controller('SiteStockController', ['$scope', '$state', '$interval', '$filter', 'data', 'history', 'transactions', 'stock',
-        function ($scope, $state, $interval, $filter, data, history, transactions, stock) {
+    .controller('SiteStockController', ['$scope', '$state', '$interval', '$filter', 'data', 'history', 'transactions', 'stock', 'order',
+        function ($scope, $state, $interval, $filter, data, history, transactions, stock, order) {
             var self = this;
 
             // resolved data
+            this.symbol = data.symbol;
             this.heading = data.name + " (" + data.symbol.toUpperCase() + ")";
             this.currentChange = $filter('number')(data.price - data.close, 2);
             this.currentChangeInPercent = $filter('number')((data.price / data.close - 1) * 100, 2) + '%';
@@ -36,6 +37,11 @@ angular.module('app.site')
                     $interval.cancel(self.timer);
                 }
             });
+
+            // open oder form
+            this.openOrderForm = function (side, symbol) {
+                order.openForm(side, symbol, "MARKET");
+            };
 
             // line chart
             this.labels = history.map(function (a) {

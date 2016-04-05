@@ -1,18 +1,13 @@
 "use strict";
 
 angular.module('app')
-    .controller('OrderController', ['$scope', 'order', 'items', 'profile',
-        function ($scope, order, items, profile) {
-            var self = this;
-
+    .controller('OrderController', ['$scope', 'order', 'items', 'data',
+        function ($scope, order, items, data) {
             this.items = items;
 
-            profile.getInventory()
-                .then(function (data) {
-                    self.symbols = data.map(function (a) {
-                        return a.symbol.toUpperCase();
-                    });
-                });
+            this.symbols = data.map(function (a) {
+                return a.symbol.toUpperCase();
+            });
 
             this.submit = function () {
                 order.submit(this.order);

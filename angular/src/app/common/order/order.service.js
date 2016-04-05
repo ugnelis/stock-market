@@ -35,14 +35,21 @@ angular.module('app')
                             templateUrl: 'app/common/order/order.html',
                             controller: 'OrderController as order',
                             resolve: {
-                                items: function () {
-                                    var items = {
-                                        side: side,
-                                        symbol: symbol.toUpperCase(),
-                                        order: order
-                                    };
-                                    return items;
-                                }
+                                data: ['stock',
+                                    function (stock) {
+                                        return stock.getIndex();
+                                    }
+                                ],
+                                items: [
+                                    function () {
+                                        var items = {
+                                            side: side,
+                                            symbol: symbol.toUpperCase(),
+                                            order: order
+                                        };
+                                        return items;
+                                    }
+                                ]
                             }
                         });
                     else {
