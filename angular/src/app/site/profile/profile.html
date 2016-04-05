@@ -65,10 +65,12 @@
                     <td>{{stock.quantity}}</td>
                     <td>{{stock.worth}}</td>
                     <td>
-                        <button ng-click="profile.openOrderForm()" type="button" class="btn btn-default">
+                        <button ng-click="profile.openOrderForm('BUY', stock.symbol)" type="button"
+                                class="btn btn-default">
                             <span class="glyphicon glyphicon-download" aria-hidden="true"></span> Buy
                         </button>
-                        <button ng-click="profile.openOrderForm()" type="button" class="btn btn-default">
+                        <button ng-click="profile.openOrderForm('SELL', stock.symbol)" type="button"
+                                class="btn btn-default">
                             <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Sell
                         </button>
                     </td>

@@ -26,8 +26,8 @@ angular.module('app.site')
             };
 
             // open oder form
-            this.openOrderForm = function () {
-                order.openForm();
+            this.openOrderForm = function (side, symbol) {
+                order.openForm(side, symbol, "MARKET");
             };
 
             // format stock inventory

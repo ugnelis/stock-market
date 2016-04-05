@@ -7,10 +7,8 @@
             <div alertbox></div>
             <form class="form-signin" name="orderForm" ng-submit="order.submit()" novalidate>
                 <div class="form-group">
-                    <select class="form-control" ng-model="order.order.side">
-                        <option>SELL</option>
-                        <option>BUY</option>
-                    </select>
+                    <select class="form-control" ng-init="order.order.side = order.items.side"
+                            ng-model="order.order.side" ng-options="side for side in order.sides"></select>
                 </div>
                 <div class="form-group">
                     <input type="number" name="price" class="form-control" placeholder="Price" min="0" step="0.01"
@@ -35,15 +33,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <select class="form-control" ng-model="order.order.symbol">
-                        <option ng-repeat="inventory in order.inventories">{{inventory.symbol | uppercase}}</option>
-                    </select>
+                    <select class="form-control" ng-init="order.order.symbol = order.items.symbol"
+                            ng-model="order.order.symbol" ng-options="symbol for symbol in order.symbols"></select>
                 </div>
                 <div class="form-group">
-                    <select class="form-control" ng-model="order.order.order">
-                        <option>MARKET</option>
-                        <option>LIMIT</option>
-                    </select>
+                    <select class="form-control" ng-init="order.order.order = order.items.order"
+                            ng-model="order.order.order" ng-options="order for order in order.orders"></select>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" type="submit">Submit</button>

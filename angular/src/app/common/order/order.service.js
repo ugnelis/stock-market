@@ -28,12 +28,22 @@ angular.module('app')
                         });
                     return promise;
                 },
-                openForm: function () {
+                openForm: function (side, symbol, order) {
                     if (principal.isAuthenticated())
                         $uibModal.open({
                             animation: true,
                             templateUrl: 'app/common/order/order.html',
-                            controller: 'OrderController as order'
+                            controller: 'OrderController as order',
+                            resolve: {
+                                items: function () {
+                                    var items = {
+                                        side: side,
+                                        symbol: symbol.toUpperCase(),
+                                        order: order
+                                    };
+                                    return items;
+                                }
+                            }
                         });
                     else {
                         $state.go('login');
