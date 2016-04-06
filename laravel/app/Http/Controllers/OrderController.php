@@ -256,7 +256,7 @@ class OrderController extends Controller
         $order = $user->orders()->find($id);
 
         // Check if user has rights
-        if (!$user->hasRole(['owner', 'moderator']) || $order === null) {
+        if (!$user->hasRole(['admin', 'moderator']) || $order === null) {
             return response()->json(['error' => 'You don&#39;t have permission to access.'], Response::HTTP_FORBIDDEN);
         }
         $order->delete();

@@ -17,6 +17,8 @@
                 <li ui-sref-active="active"><a ui-sref="stocks">Stocks</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li ui-sref-active="active" ng-show="navbar.principal.isInRole('admin')"><a
+                        ui-sref="admin">Admin</a></li>
                 <li ui-sref-active="active" ng-show="navbar.principal.isAuthenticated()"><a
                         ui-sref="profile">Profile</a></li>
                 <li ng-show="navbar.principal.isAuthenticated()"><a ng-click="navbar.signout()">Sign out</a></li>

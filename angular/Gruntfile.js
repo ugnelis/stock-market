@@ -76,6 +76,7 @@ module.exports = function (grunt) {
                     'dist/js/app.js': [
                         'src/app/app.js',
                         'src/app/site/site.js',
+                        'src/app/admin/admin.js',
                         'src/**/*.js'
                     ]
                 }

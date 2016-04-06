@@ -9,7 +9,6 @@ angular.module('app.site', [
             .state('site', {
                 abstract: true,
                 cache: false,
-
                 resolve: {
                     authorize: ['auth',
                         function (auth) {

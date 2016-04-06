@@ -10,7 +10,8 @@ angular.module('app', [
         'angular-storage',
         'ui.bootstrap',
         'ui.router',
-        'app.site'
+        'app.site',
+        'app.admin'
     ])
     .run(
         ['$rootScope', '$state', '$stateParams', 'cfpLoadingBar', 'auth', 'principal', 'alert',
@@ -22,6 +23,12 @@ angular.module('app', [
                 // On State Change
                 $rootScope.$on('$stateChangeStart',
                     function (event, toState, toParams, fromState, fromParams) {
+                        // redirectTo attribute
+                        if (toState.redirectTo) {
+                            event.preventDefault();
+                            $state.go(toState.redirectTo, toParams)
+                        }
+
                         cfpLoadingBar.start();
 
                         $rootScope.toState = toState;

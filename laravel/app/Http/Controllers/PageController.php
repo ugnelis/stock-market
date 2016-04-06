@@ -27,7 +27,7 @@ class PageController extends Controller
     {
         // Check if user has rights
         $user = Auth::user();
-        if (!$user->hasRole(['owner', 'moderator'])) {
+        if (!$user->hasRole(['admin', 'moderator'])) {
             return response()->json(['error' => 'You don&#39;t have permission to access.'], Response::HTTP_FORBIDDEN);
         }
 
@@ -44,7 +44,7 @@ class PageController extends Controller
     {
         // Check if user has rights
         $user = Auth::user();
-        if (!$user->hasRole(['owner', 'moderator'])) {
+        if (!$user->hasRole(['admin', 'moderator'])) {
             return response()->json(['error' => 'You don&#39;t have permission to access.'], Response::HTTP_FORBIDDEN);
         }
 
@@ -107,7 +107,7 @@ class PageController extends Controller
     {
         // Check if user has rights
         $user = Auth::user();
-        if (!$user->hasRole(['owner', 'moderator'])) {
+        if (!$user->hasRole(['admin', 'moderator'])) {
             return response()->json(['error' => 'You don&#39;t have permission to access.'], Response::HTTP_FORBIDDEN);
         }
 
@@ -153,7 +153,7 @@ class PageController extends Controller
     {
         // Check if user has rights
         $user = Auth::user();
-        if (!$user->hasRole(['owner', 'moderator'])) {
+        if (!$user->hasRole(['admin', 'moderator'])) {
             return response()->json(['error' => 'You don&#39;t have permission to access.'], Response::HTTP_FORBIDDEN);
         }
 
