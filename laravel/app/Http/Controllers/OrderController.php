@@ -259,6 +259,11 @@ class OrderController extends Controller
         if (!$user->hasRole(['admin', 'moderator']) || $order === null) {
             return response()->json(['error' => 'You don&#39;t have permission to access.'], Response::HTTP_FORBIDDEN);
         }
+
+        if ($order === null) {
+            return response()->json(['error' => 'Order does not exist.'], Response::HTTP_CONFLICT);
+        }
+
         $order->delete();
 
         return response()->json(['success' => 'Order is removed.']);

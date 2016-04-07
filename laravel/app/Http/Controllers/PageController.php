@@ -158,6 +158,10 @@ class PageController extends Controller
         }
 
         $page = Page::find($id);
+        if ($page === null) {
+            return response()->json(['error' => 'Page does not exist.'], Response::HTTP_CONFLICT);
+        }
+
         $page->delete();
 
         return response()->json(['success' => 'Page is removed.']);

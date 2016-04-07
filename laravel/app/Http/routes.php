@@ -20,6 +20,9 @@ Route::group(['prefix' => 'api'], function () {
     Route::put('pages/{id}', 'PageController@update');
     Route::delete('pages/{id}', 'PageController@destroy');
 
+    Route::get('users', 'UserController@index');
+    Route::delete('users/{id}', 'UserController@destroy');
+
     Route::get('profile', 'ProfileController@index');
     Route::get('profile/inventory', 'ProfileController@inventory');
     Route::get('profile/account', 'ProfileController@account');

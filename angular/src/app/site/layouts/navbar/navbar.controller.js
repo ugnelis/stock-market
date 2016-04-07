@@ -6,6 +6,6 @@ angular.module('app.site')
 
         this.signout = function () {
             principal.authenticate(null);
-            $state.go('login');
+            $state.go('site.login');
         };
     }]);
