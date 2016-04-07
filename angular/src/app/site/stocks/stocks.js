@@ -3,7 +3,7 @@
 angular.module('app.site')
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state('stocks', {
+            .state('site.stocks', {
                 parent: 'site',
                 url: '/stocks',
                 data: {

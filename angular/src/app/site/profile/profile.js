@@ -3,7 +3,7 @@
 angular.module('app.site')
     .config(['$httpProvider', '$stateProvider', function ($httpProvider, $stateProvider) {
         $stateProvider
-            .state('profile', {
+            .state('site.profile', {
                 parent: 'site',
                 url: '/profile',
                 data: {
@@ -17,7 +17,6 @@ angular.module('app.site')
                     ],
                     inventory: ['profile',
                         function (profile) {
-                            console.log(profile);
                             return profile.getInventory();
                         }
                     ],

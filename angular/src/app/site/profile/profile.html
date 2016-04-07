@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="stock in profile.stocks">
-                    <td><a ui-sref="stocks.unit({ symbol: stock.symbol })">{{stock.name}} ({{stock.symbol |
+                    <td><a ui-sref="site.stocks.unit({ symbol: stock.symbol })">{{stock.name}} ({{stock.symbol |
                         uppercase}})</a></td>
                     <td animate-on-change="stock.price">{{stock.price}}</td>
                     <td>{{stock.quantity}}</td>
@@ -98,7 +98,7 @@
                 <tbody>
                 <tr ng-repeat="order in profile.orders">
                     <td>{{order.side}}</td>
-                    <td><a ui-sref="stocks.unit({ symbol: order.symbol })">{{order.symbol | uppercase}}</a></td>
+                    <td><a ui-sref="site.stocks.unit({ symbol: order.symbol })">{{order.symbol | uppercase}}</a></td>
                     <td>{{order.price}}</td>
                     <td>{{order.quantity}}</td>
                     <td>{{order.time}}</td>

@@ -6,9 +6,9 @@ angular.module('app.admin', [
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('admin', {
+                //abstract: true,
                 url: '/admin',
                 redirectTo: 'admin.dashboard',
-                //abstract: true,
                 cache: false,
                 data: {
                     roles: ['admin']

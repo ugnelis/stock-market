@@ -10,7 +10,7 @@ angular.module('app')
                             var isAuthenticated = principal.isAuthenticated();
 
                             if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0 && !principal.isInAnyRole($rootScope.toState.data.roles)) {
-                                if (isAuthenticated) $state.go('home');
+                                if (isAuthenticated) $state.go('site');
                                 else {
                                     // user is not authenticated. stow the state they wanted before you
                                     // send them to the signin state, so you can return them when you're done
@@ -18,7 +18,7 @@ angular.module('app')
                                     $rootScope.returnToStateParams = $rootScope.toStateParams;
 
                                     // now, send them to the signin state so they can log in
-                                    $state.go('login');
+                                    $state.go('site.login');
                                 }
                             }
                         });
@@ -30,7 +30,7 @@ angular.module('app')
                         })
                         .then(function () {
                             principal.identity(true);
-                            $state.go('home');
+                            $state.go('site');
                         });
                 },
                 register: function (credentials) {
@@ -40,7 +40,7 @@ angular.module('app')
                         })
                         .then(function () {
                             principal.identity(true);
-                            $state.go('home');
+                            $state.go('site');
                         });
                 }
             };

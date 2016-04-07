@@ -12,19 +12,19 @@
         </div>
         <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
             <ul class="nav navbar-nav">
-                <li ui-sref-active="active"><a ui-sref="home">Home</a></li>
-                <li ui-sref-active="active"><a ui-sref="about">About</a></li>
-                <li ui-sref-active="active"><a ui-sref="stocks">Stocks</a></li>
+                <li ui-sref-active="active"><a ui-sref="site.home">Home</a></li>
+                <li ui-sref-active="active"><a ui-sref="site.about">About</a></li>
+                <li ui-sref-active="active"><a ui-sref="site.stocks">Stocks</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ui-sref-active="active" ng-show="navbar.principal.isInRole('admin')"><a
                         ui-sref="admin">Admin</a></li>
                 <li ui-sref-active="active" ng-show="navbar.principal.isAuthenticated()"><a
-                        ui-sref="profile">Profile</a></li>
+                        ui-sref="site.profile">Profile</a></li>
                 <li ng-show="navbar.principal.isAuthenticated()"><a ng-click="navbar.signout()">Sign out</a></li>
-                <li ui-sref-active="active" ng-hide="navbar.principal.isAuthenticated()"><a ui-sref="login">Login</a>
+                <li ui-sref-active="active" ng-hide="navbar.principal.isAuthenticated()"><a ui-sref="site.login">Login</a>
                 </li>
-                <li ui-sref-active="active" ng-hide="navbar.principal.isAuthenticated()"><a ui-sref="register">Sign
+                <li ui-sref-active="active" ng-hide="navbar.principal.isAuthenticated()"><a ui-sref="site.register">Sign
                     up</a></li>
             </ul>
         </div>

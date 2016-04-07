@@ -3,7 +3,7 @@
 angular.module('app.site')
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state('stocks.unit', {
+            .state('site.stocks.unit', {
                 parent: 'site',
                 url: '/stocks/:symbol',
                 data: {

@@ -7,8 +7,12 @@ angular.module('app.site', [
     .config(['$stateProvider', 'ChartJsProvider', function ($stateProvider, ChartJsProvider) {
         $stateProvider
             .state('site', {
-                abstract: true,
+                //abstract: true,
+                redirectTo: 'site.home',
                 cache: false,
+                data: {
+                    roles: []
+                },
                 resolve: {
                     authorize: ['auth',
                         function (auth) {

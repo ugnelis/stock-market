@@ -13,7 +13,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="stock in stocks.stocks">
-            <td><a ui-sref="stocks.unit({ symbol: stock.symbol })">{{stock.name}} ({{stock.symbol | uppercase}})</a>
+            <td><a ui-sref="site.stocks.unit({ symbol: stock.symbol })">{{stock.name}} ({{stock.symbol | uppercase}})</a>
             </td>
             <td>${{stock.price}}</td>
             <td ng-class="{ success: stock.change[0] == '+', danger: stock.change[0] == '-' }">{{stock.change}}</td>

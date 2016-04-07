@@ -3,7 +3,7 @@
 angular.module('app.site')
     .config(['$httpProvider', '$stateProvider', function ($httpProvider, $stateProvider) {
         $stateProvider
-            .state('login', {
+            .state('site.login', {
                 parent: 'site',
                 url: '/login',
                 data: {
