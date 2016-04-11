@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module('app')
-    .controller('OrderController', ['$scope', 'order', 'items', 'data',
-        function ($scope, order, items, data) {
+    .controller('OrderController', ['$scope', 'orders', 'items', 'data',
+        function ($scope, orders, items, data) {
             this.items = items;
 
             this.symbols = data.map(function (a) {
@@ -10,7 +10,7 @@ angular.module('app')
             });
 
             this.submit = function () {
-                order.submit(this.order);
+                orders.submit(this.order);
             };
 
             this.sides = ['SELL', 'BUY'];

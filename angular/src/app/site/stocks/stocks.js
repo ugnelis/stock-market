@@ -10,9 +10,9 @@ angular.module('app.site')
                     roles: []
                 },
                 resolve: {
-                    data: ['stock',
-                        function (stock) {
-                            return stock.getIndex();
+                    resolvedStocks: ['stocks',
+                        function (stocks) {
+                            return stocks.getIndex();
                         }
                     ]
                 },

@@ -1,9 +1,19 @@
 "use strict";
 
 angular.module('app')
-    .factory('order', ['$http', '$state', '$uibModal', 'principal', 'alert', 'API',
+    .factory('orders', ['$http', '$state', '$uibModal', 'principal', 'alert', 'API',
         function ($http, $state, $uibModal, principal, alert, API) {
-            var order = {
+            var orders = {
+                getIndex: function () {
+                    var promise = $http.get(API.ORDERS)
+                        .error(function (response) {
+                            alert.add('danger', response.error);
+                        })
+                        .then(function (response) {
+                            return response.data;
+                        });
+                    return promise;
+                },
                 submit: function (data) {
                     return $http({
                         method: 'POST',
@@ -35,9 +45,9 @@ angular.module('app')
                             templateUrl: 'app/common/order/order.html',
                             controller: 'OrderController as order',
                             resolve: {
-                                data: ['stock',
-                                    function (stock) {
-                                        return stock.getIndex();
+                                data: ['stocks',
+                                    function (stocks) {
+                                        return stocks.getIndex();
                                     }
                                 ],
                                 items: [
@@ -57,6 +67,6 @@ angular.module('app')
                     }
                 }
             };
-            return order;
+            return orders;
         }
     ]);

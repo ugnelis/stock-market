@@ -35,3 +35,42 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Orders</h3></div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="col-md-1">#</th>
+                    <th class="col-md-1">Side</th>
+                    <th class="col-md-1">Symbol</th>
+                    <th class="col-md-1">Price</th>
+                    <th class="col-md-1">Quantity</th>
+                    <th class="col-md-1">Order</th>
+                    <th class="col-md-2">Email</th>
+                    <th class="col-md-2">Created at</th>
+                    <th class="col-md-2">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="order in dashboard.orders">
+                    <td>{{order.id}}</td>
+                    <td>{{order.side}}</td>
+                    <td>{{order.stock.symbol | uppercase}}</td>
+                    <td>{{order.price}}</td>
+                    <td>{{order.quantity}}</td>
+                    <td>{{order.order}}</td>
+                    <td>{{order.user.email}}</td>
+                    <td>{{order.created_at}}</td>
+                    <td>
+                        <button ng-click="dashboard.removeOrder(order.id)" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

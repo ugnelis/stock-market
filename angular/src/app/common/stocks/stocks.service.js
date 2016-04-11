@@ -1,9 +1,9 @@
 "use strict";
 
 angular.module('app')
-    .factory('stock', ['$http', 'API',
+    .factory('stocks', ['$http', 'API',
         function ($http, API) {
-            var stock = {
+            var stocks = {
                 getIndex: function () {
                     var promise = $http.get(API.STOCKS)
                         .then(function (response) {
@@ -33,6 +33,6 @@ angular.module('app')
                     return promise;
                 }
             };
-            return stock;
+            return stocks;
         }
     ]);

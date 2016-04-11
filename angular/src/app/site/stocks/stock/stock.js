@@ -10,22 +10,22 @@ angular.module('app.site')
                     roles: []
                 },
                 resolve: {
-                    data: ['$stateParams', 'stock',
-                        function ($stateParams, stock) {
-                            var result = stock.getStock($stateParams.symbol);
+                    resolvedStock: ['$stateParams', 'stocks',
+                        function ($stateParams, stocks) {
+                            var result = stocks.getStock($stateParams.symbol);
                             if (Array.isArray(result))
                                 return result[0];
                             return result;
                         }
                     ],
-                    history: ['$stateParams', 'stock',
-                        function ($stateParams, stock) {
-                            return stock.getStockHistory($stateParams.symbol);
+                    resolvedHistory: ['$stateParams', 'stocks',
+                        function ($stateParams, stocks) {
+                            return stocks.getStockHistory($stateParams.symbol);
                         }
                     ],
-                    transactions: ['$stateParams', 'stock',
-                        function ($stateParams, stock) {
-                            return stock.getTransactions($stateParams.symbol);
+                    resolvedTransactions: ['$stateParams', 'stocks',
+                        function ($stateParams, stocks) {
+                            return stocks.getTransactions($stateParams.symbol);
                         }
                     ]
                 },

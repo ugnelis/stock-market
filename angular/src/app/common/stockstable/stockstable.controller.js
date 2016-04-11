@@ -1,13 +1,13 @@
 "use strict";
 
 angular.module('app')
-    .controller('StocksTableController', ['$scope', 'stock',
-        function ($scope, stock) {
+    .controller('StocksTableController', ['$scope', 'stocks',
+        function ($scope, stocks) {
             var self = this;
 
             self.loaded = false;
 
-            stock.getIndex()
+            stocks.getIndex()
                 .then(function (data) {
                     self.stocks = data;
                     self.loaded = true;

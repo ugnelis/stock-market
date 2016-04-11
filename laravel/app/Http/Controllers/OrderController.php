@@ -29,6 +29,23 @@ class OrderController extends Controller
     }
 
     /**
+     * Display a listing of the orders.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        // Check if user has rights
+        $user = Auth::user();
+        if (!$user->hasRole(['admin'])) {
+            return response()->json(['error' => 'You don&#39;t have permission to access.'], Response::HTTP_FORBIDDEN);
+        }
+
+        $order = Order::with('user', 'stock')->get();
+        return response()->json($order);
+    }
+
+    /**
      * Submit an order.
      *
      * @return \Illuminate\Http\Response

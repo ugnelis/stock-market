@@ -1,30 +1,30 @@
 'use strict';
 
 angular.module('app.site')
-    .controller('SiteStockController', ['$scope', '$state', '$interval', '$filter', 'data', 'history', 'transactions', 'stock', 'order',
-        function ($scope, $state, $interval, $filter, data, history, transactions, stock, order) {
+    .controller('SiteStockController', ['$scope', '$state', '$interval', '$filter', 'resolvedStock', 'resolvedHistory', 'resolvedTransactions', 'stocks', 'orders',
+        function ($scope, $state, $interval, $filter, resolvedStock, resolvedHistory, resolvedTransactions, stocks, orders) {
             var self = this;
 
             // resolved data
-            this.symbol = data.symbol;
-            this.heading = data.name + " (" + data.symbol.toUpperCase() + ")";
-            this.currentChange = $filter('number')(data.price - data.close, 2);
-            this.currentChangeInPercent = $filter('number')((data.price / data.close - 1) * 100, 2) + '%';
-            this.price = $filter('currency')(data.price, '$', 2);
-            this.high = data.high;
-            this.low = data.low;
-            this.close = data.close;
-            this.open = data.open;
-            this.volume = $filter('number')(data.volume);
+            this.symbol = resolvedStock.symbol;
+            this.heading = resolvedStock.name + " (" + resolvedStock.symbol.toUpperCase() + ")";
+            this.currentChange = $filter('number')(resolvedStock.price - resolvedStock.close, 2);
+            this.currentChangeInPercent = $filter('number')((resolvedStock.price / resolvedStock.close - 1) * 100, 2) + '%';
+            this.price = $filter('currency')(resolvedStock.price, '$', 2);
+            this.high = resolvedStock.high;
+            this.low = resolvedStock.low;
+            this.close = resolvedStock.close;
+            this.open = resolvedStock.open;
+            this.volume = $filter('number')(resolvedStock.volume);
 
-            this.transactions = transactions;
+            this.transactions = resolvedTransactions;
             for (var i = 0; i < this.transactions.length; i++) {
                 this.transactions[i].worth = this.transactions[i].quantity * this.transactions[i].price;
             }
 
             // update
             this.timer = $interval(function () {
-                stock.getStock(data.symbol)
+                stocks.getStock(resolvedStock.symbol)
                     .then(function (data) {
                         self.price = $filter('currency')(data.price, '$', 2);
                         self.currentChange = $filter('number')(data.price - data.close, 2);
@@ -40,17 +40,17 @@ angular.module('app.site')
 
             // open oder form
             this.openOrderForm = function (side, symbol) {
-                order.openForm(side, symbol, "MARKET");
+                orders.openForm(side, symbol, "MARKET");
             };
 
             // line chart
-            this.labels = history.map(function (a) {
+            this.labels = resolvedHistory.map(function (a) {
                 return a.Date;
             }).reverse();
             this.series = ['Open', 'Close'];
-            this.data = [history.map(function (a) {
+            this.data = [resolvedHistory.map(function (a) {
                 return a.Open;
-            }).reverse(), history.map(function (a) {
+            }).reverse(), resolvedHistory.map(function (a) {
                 return a.Close;
             }).reverse()];
         }]);

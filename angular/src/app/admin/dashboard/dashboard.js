@@ -7,9 +7,14 @@ angular.module('app.admin')
                 parent: 'admin',
                 url: '/dashboard',
                 resolve: {
-                    data: ['users',
+                    resolvedUsers: ['users',
                         function (users) {
                             return users.getIndex();
+                        }
+                    ],
+                    resolvedOrders: ['orders',
+                        function (orders) {
+                            return orders.getIndex();
                         }
                     ]
                 },

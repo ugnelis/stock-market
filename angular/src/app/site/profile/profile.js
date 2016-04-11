@@ -10,36 +10,36 @@ angular.module('app.site')
                     roles: ['user']
                 },
                 resolve: {
-                    index: ['profile',
+                    resolvedIndex: ['profile',
                         function (profile) {
                             return profile.getIndex();
                         }
                     ],
-                    inventory: ['profile',
+                    resolvedInventory: ['profile',
                         function (profile) {
                             return profile.getInventory();
                         }
                     ],
-                    account: ['profile',
+                    resolvedAccount: ['profile',
                         function (profile) {
                             return profile.getAccount();
                         }
                     ],
-                    orders: ['profile',
+                    resolvedOrders: ['profile',
                         function (profile) {
                             return profile.getOrders();
                         }
                     ],
-                    stocks: ['$stateParams', 'stock', 'inventory',
-                        function ($stateParams, stock, inventory) {
-                            var symbols = inventory.map(function (array) {
+                    resolvedStocks: ['$stateParams', 'stocks', 'resolvedInventory',
+                        function ($stateParams, stocks, resolvedInventory) {
+                            var symbols = resolvedInventory.map(function (array) {
                                 return array.symbol;
                             });
 
                             if (symbols.toString() == "")
                                 return [];
 
-                            return stock.getStock(symbols.toString());
+                            return stocks.getStock(symbols.toString());
                         }
                     ]
                 },
