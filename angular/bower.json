@@ -1,5 +1,5 @@
 {
-  "name": "angular-simple-app",
+  "name": "stock-market",
   "version": "0.0.1",
   "moduleType": [
     "node"
@@ -33,7 +33,7 @@
     "angular-loading-bar": "0.8.0",
     "angular-ui-router": "0.2.18",
     "angular-chart.js": "0.9.0",
-    "chart.js": "1.0.2",
+    "Chart.js": "1.0.2",
     "bootstrap": "3.3.5",
     "jquery": "2.1.4",
     "themify-icons": "~0.1.0"

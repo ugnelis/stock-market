@@ -1,12 +1,13 @@
 {
-  "name": "angular-simple-app",
+  "name": "stock-market",
   "version": "0.0.1",
+  "description": "Stock Market which uses Laravel 5.2 and AngularJS.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Ugnelis/angular-simple-app.git"
+    "url": "https://github.com/Ugnelis/stock-market.git"
   },
   "keywords": [
     "angular",
@@ -17,12 +18,13 @@
   "homepage": "http://malukas.lt",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Ugnelis/angular-simple-app/issues"
+    "url": "https://github.com/Ugnelis/stock-market/issues"
   },
   "dependencies": {
     "bower": "^1.6.3"
   },
   "devDependencies": {
+    "grunt": "^1.0.1",
     "grunt-concat-css": "^0.3.1",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-copy": "^0.8.2",
