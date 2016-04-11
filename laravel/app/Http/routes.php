@@ -21,7 +21,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::delete('pages/{id}', 'PageController@destroy');
 
     Route::get('users', 'UserController@index');
-    Route::delete('users/{id}', 'UserController@destroy');
+    Route::delete('users/{id}/remove', 'UserController@remove');
 
     Route::get('profile', 'ProfileController@index');
     Route::get('profile/inventory', 'ProfileController@inventory');

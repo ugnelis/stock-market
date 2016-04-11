@@ -10,7 +10,8 @@ angular.module('app')
             PROFILE: server + "profile/",
             PAGES: server + "pages/",
             STOCKS: server + "stocks/",
-            ORDERS: server + "orders/"
+            ORDERS: server + "orders/",
+            USERS: server + "users/"
         }
     })())
     .constant('APP_ROLES', {

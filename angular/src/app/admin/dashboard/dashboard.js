@@ -6,6 +6,13 @@ angular.module('app.admin')
             .state('admin.dashboard', {
                 parent: 'admin',
                 url: '/dashboard',
+                resolve: {
+                    data: ['users',
+                        function (users) {
+                            return users.getIndex();
+                        }
+                    ]
+                },
                 views: {
                     'content': {
                         templateUrl: 'app/admin/dashboard/dashboard.html',

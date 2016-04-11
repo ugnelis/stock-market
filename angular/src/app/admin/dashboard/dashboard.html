@@ -1,1 +1,37 @@
-<div>dashboard</div>
+<div class="page-header">
+    <h1>Dashboard</h1>
+</div>
+<div alertbox></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Users</h3></div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="col-md-2">#</th>
+                    <th class="col-md-2">Name</th>
+                    <th class="col-md-2">Email</th>
+                    <th class="col-md-2">Created at</th>
+                    <th class="col-md-2">Updated at</th>
+                    <th class="col-md-2">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in dashboard.users">
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.created_at}}</td>
+                    <td>{{user.updated_at}}</td>
+                    <td>
+                        <button ng-click="dashboard.removeUser(user.id)" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

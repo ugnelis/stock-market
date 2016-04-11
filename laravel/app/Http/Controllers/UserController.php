@@ -41,17 +41,20 @@ class UserController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function destroy($id)
+    public function remove($id)
     {
         // Check if user has rights
-        $user = Auth::user();
-        if (!$user->hasRole(['admin'])) {
+        $auth = Auth::user();
+        if (!$auth->hasRole(['admin'])) {
             return response()->json(['error' => 'You don&#39;t have permission to access.'], Response::HTTP_FORBIDDEN);
         }
 
         $user = User::find($id);
         if ($user === null) {
             return response()->json(['error' => 'User does not exist.'], Response::HTTP_CONFLICT);
+        }
+        if ($auth == $user) {
+            return response()->json(['error' => 'You cannot remove yourself.'], Response::HTTP_CONFLICT);
         }
 
         $user->delete();
