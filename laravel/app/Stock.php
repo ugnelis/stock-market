@@ -25,4 +25,9 @@ class Stock extends Model
     {
         return $this->hasMany('App\Order', 'stock_id', 'id');
     }
+
+    public function notifications()
+    {
+        return $this->hasMany('App\Notification', 'stock_id', 'id');
+    }
 }

@@ -30,7 +30,8 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Accounts table seeded!');
         $this->call('OrdersTableSeeder');
         $this->command->info('Orders table seeded!');
-
+        $this->call('NotificationsTableSeeder');
+        $this->command->info('Notifications table seeded!');
         Model::reguard();
     }
 }
