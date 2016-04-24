@@ -149,7 +149,7 @@ class PageController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function destroy($id)
+    public function remove($id)
     {
         // Check if user has rights
         $user = Auth::user();

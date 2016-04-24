@@ -18,10 +18,10 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('pages/{uri}', 'PageController@show');
     Route::post('pages', 'PageController@store');
     Route::put('pages/{id}', 'PageController@update');
-    Route::delete('pages/{id}', 'PageController@destroy');
+    Route::delete('pages/{id}', 'PageController@remove');
 
     Route::get('users', 'UserController@index');
-    Route::delete('users/{id}/remove', 'UserController@remove');
+    Route::delete('users/{id}', 'UserController@remove');
 
     Route::get('profile', 'ProfileController@index');
     Route::get('profile/inventory', 'ProfileController@inventory');
@@ -29,6 +29,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('profile/orders', 'ProfileController@orders');
 
     Route::get('orders', 'OrderController@index');
-    Route::post('orders/submit', 'OrderController@submit');
-    Route::delete('orders/{id}/remove', 'OrderController@remove');
+    Route::post('orders', 'OrderController@submit');
+    Route::delete('orders/{id}', 'OrderController@remove');
 });

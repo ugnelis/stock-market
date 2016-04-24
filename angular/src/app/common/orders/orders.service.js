@@ -17,7 +17,7 @@ angular.module('app')
                 submit: function (data) {
                     return $http({
                         method: 'POST',
-                        url: API.ORDERS + "submit/",
+                        url: API.ORDERS,
                         data: JSON.stringify(data),
                         ignoreErrors: true,
                         headers: {
@@ -32,7 +32,7 @@ angular.module('app')
                         });
                 },
                 remove: function (id) {
-                    var promise = $http.delete(API.ORDERS + id + '/remove')
+                    var promise = $http.delete(API.ORDERS + id)
                         .then(function (response) {
                             return response.data;
                         });

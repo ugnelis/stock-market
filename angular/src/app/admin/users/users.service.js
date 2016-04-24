@@ -15,7 +15,7 @@ angular.module('app.admin')
                     return promise;
                 },
                 remove: function (id) {
-                    var promise = $http.delete(API.USERS + id + '/remove')
+                    var promise = $http.delete(API.USERS + id)
                         .error(function (response) {
                             alert.add('danger', response.error);
                         })
