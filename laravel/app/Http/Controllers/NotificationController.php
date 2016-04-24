@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
-use DB;
 
+use App\Services\YahooFinance;
 use JWTAuth;
 use TymonJWTAuthExceptionsJWTException;
 use Auth;
+use DB;
+use Mail;
 use App\Stock;
 use App\Notification;
 
@@ -103,5 +105,35 @@ class NotificationController extends Controller
         $notification->delete();
 
         return response()->json(['success' => 'Notification is removed.']);
+    }
+
+
+    /**
+     * Send emails of notifications.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sendEmails()
+    {
+        $notifications = Notification::with('user', 'stock')->get();
+        $yahooFinance = new YahooFinance();
+
+        foreach ($notifications as $notification) {
+            $liveStock = $yahooFinance->getQuotes($notification->stock->symbol);
+
+            if (round($liveStock->price, 2) == round($notification->price, 2)) {
+                $data = array(
+                    'stock' => strtoupper($notification->stock->symbol),
+                    'price' => $notification->price
+                );
+
+                Mail::send('emails.notification', $data, function ($mail) use ($notification) {
+                    $mail->from('notifications@stockmarket.com', 'Stock Market');
+                    $mail->to($notification->user->email, $notification->user->name)->subject('Notification about reached price!');
+                });
+                $notification->delete();
+            }
+        }
+        return response()->json(['success' => 'Notifications are sent.']);
     }
 }

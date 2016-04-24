@@ -157,7 +157,6 @@ class YahooFinance
     {
         $paramsString = "";
         $columnsString = "";
-        $stocksString = "";
 
         foreach ($this->format as $format) {
             $paramsString .= $format[0];
