@@ -31,4 +31,8 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('orders', 'OrderController@index');
     Route::post('orders', 'OrderController@submit');
     Route::delete('orders/{id}', 'OrderController@remove');
+
+    Route::get('notifications', 'NotificationController@index');
+    Route::post('notifications', 'NotificationController@submit');
+    Route::delete('notifications/{id}', 'NotificationController@remove');
 });
