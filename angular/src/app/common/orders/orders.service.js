@@ -63,7 +63,7 @@ angular.module('app')
                             }
                         });
                     else {
-                        $state.go('login');
+                        $state.go('site.login');
                     }
                 }
             };

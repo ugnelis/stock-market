@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('app.site')
-    .controller('SiteStockController', ['$scope', '$state', '$interval', '$filter', 'resolvedStock', 'resolvedHistory', 'resolvedTransactions', 'stocks', 'orders',
-        function ($scope, $state, $interval, $filter, resolvedStock, resolvedHistory, resolvedTransactions, stocks, orders) {
+    .controller('SiteStockController', ['$scope', '$state', '$interval', '$filter', 'resolvedStock', 'resolvedHistory', 'resolvedTransactions', 'stocks', 'orders', 'notifications',
+        function ($scope, $state, $interval, $filter, resolvedStock, resolvedHistory, resolvedTransactions, stocks, orders, notifications) {
             var self = this;
 
             // resolved data
@@ -41,6 +41,12 @@ angular.module('app.site')
             // open oder form
             this.openOrderForm = function (side, symbol) {
                 orders.openForm(side, symbol, "MARKET");
+            };
+
+            // submit stock price notification
+            this.submitNotification = function () {
+                this.notification.symbol = this.symbol;
+                notifications.submit(this.notification);
             };
 
             // line chart
