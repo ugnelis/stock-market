@@ -4,6 +4,7 @@ angular.module('app')
     .factory('principal', ['$q', '$http', '$timeout', 'store', 'API',
         function ($q, $http, $timeout, store, API) {
             var _identity = undefined,
+                _jwt = undefined,
                 _authenticated = false;
 
             var principal = {
@@ -35,7 +36,10 @@ angular.module('app')
                     _identity = identity;
                     _authenticated = identity != null;
 
-                    if (identity) store.set('stock_market.identity', angular.toJson(identity));
+                    if (identity) {
+                        store.set('stock_market.identity', angular.toJson(identity));
+                        store.set('stock_market.jwt', _jwt);
+                    }
                     else {
                         store.remove('stock_market.identity');
                         store.remove('stock_market.jwt');
@@ -84,8 +88,9 @@ angular.module('app')
                         }
                     })
                         .success(function (data) {
+                            _jwt = data.token;
                             store.set('stock_market.jwt', data.token);
-                        })
+                        });
                 },
                 register: function (credentials) {
                     return $http({
@@ -96,7 +101,7 @@ angular.module('app')
                         headers: {
                             'Content-Type': 'application/json'
                         }
-                    })
+                    });
                 }
             };
             return principal;
