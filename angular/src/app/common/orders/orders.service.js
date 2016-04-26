@@ -42,8 +42,8 @@ angular.module('app')
                     if (principal.isAuthenticated())
                         $uibModal.open({
                             animation: true,
-                            templateUrl: 'app/common/order/order.html',
-                            controller: 'OrderController as order',
+                            templateUrl: 'app/common/orders/orders.html',
+                            controller: 'OrdersController as orders',
                             resolve: {
                                 data: ['stocks',
                                     function (stocks) {

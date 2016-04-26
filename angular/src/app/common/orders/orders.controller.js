@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('app')
-    .controller('OrderController', ['$scope', 'orders', 'items', 'data',
+    .controller('OrdersController', ['$scope', 'orders', 'items', 'data',
         function ($scope, orders, items, data) {
             this.items = items;
 
