@@ -80,7 +80,7 @@ class NotificationController extends Controller
         $notification->price = Input::get('price');
         $notification->save();
 
-        return response()->json(['success' => 'Notification is submited.']);
+        return response()->json(['success' => 'Notification is submitted.']);
     }
 
     /**

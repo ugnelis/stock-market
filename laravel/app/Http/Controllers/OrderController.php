@@ -112,7 +112,7 @@ class OrderController extends Controller
         if ($this->tradeIfPossible($order->id))
             return response()->json(['success' => 'Order is made.']);
 
-        return response()->json(['success' => 'Order is submited.']);
+        return response()->json(['success' => 'Order is submitted.']);
     }
 
     /**
