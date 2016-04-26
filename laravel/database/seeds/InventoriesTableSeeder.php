@@ -16,7 +16,7 @@ class InventoriesTableSeeder extends Seeder
     {
         DB::table('inventories')->delete();
 
-        $user = User::where('name', 'Ugnius')->first();
+        $user = User::where('name', 'Administrator')->first();
 
         $stock = Stock::where('symbol', 'aapl')->first();
         $inventory = new Inventory();
@@ -32,7 +32,7 @@ class InventoriesTableSeeder extends Seeder
         $inventory->quantity = 10;
         $inventory->save();
 
-        $user = User::where('name', 'Test')->first();
+        $user = User::where('name', 'Moderator')->first();
 
         $stock = Stock::where('symbol', 'aapl')->first();
         $inventory = new Inventory();
@@ -46,6 +46,22 @@ class InventoriesTableSeeder extends Seeder
         $inventory->stock()->associate($stock);
         $inventory->user()->associate($user);
         $inventory->quantity = 4;
+        $inventory->save();
+
+        $user = User::where('name', 'User')->first();
+
+        $stock = Stock::where('symbol', 'amzn')->first();
+        $inventory = new Inventory();
+        $inventory->stock()->associate($stock);
+        $inventory->user()->associate($user);
+        $inventory->quantity = 20;
+        $inventory->save();
+
+        $stock = Stock::where('symbol', 'goog')->first();
+        $inventory = new Inventory();
+        $inventory->stock()->associate($stock);
+        $inventory->user()->associate($user);
+        $inventory->quantity = 5;
         $inventory->save();
     }
 }

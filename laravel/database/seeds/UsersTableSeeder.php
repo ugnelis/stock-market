@@ -15,15 +15,22 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->delete();
 
         $user = new User([
-            'name' => 'Ugnius',
-            'email' => 'ugnius@email.com',
+            'name' => 'Administrator',
+            'email' => 'admin@email.com',
             'password' => bcrypt('password')
         ]);
         $user->save();
 
         $user = new User([
-            'name' => 'Test',
-            'email' => 'test@email.com',
+            'name' => 'Moderator',
+            'email' => 'moderator@email.com',
+            'password' => bcrypt('password')
+        ]);
+        $user->save();
+
+        $user = new User([
+            'name' => 'User',
+            'email' => 'user@email.com',
             'password' => bcrypt('password')
         ]);
         $user->save();

@@ -16,7 +16,7 @@ class OrdersTableSeeder extends Seeder
     {
         DB::table('orders')->delete();
 
-        $user = User::where('name', 'Ugnius')->first();
+        $user = User::where('name', 'Administrator')->first();
 
         $stock = Stock::where('symbol', 'aapl')->first();
         $order = new Order();

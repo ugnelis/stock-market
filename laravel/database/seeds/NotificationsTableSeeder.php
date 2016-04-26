@@ -16,7 +16,7 @@ class NotificationsTableSeeder extends Seeder
     {
         DB::table('notifications')->delete();
 
-        $user = User::where('name', 'Ugnius')->first();
+        $user = User::where('name', 'User')->first();
 
         $stock = Stock::where('symbol', 'aapl')->first();
         $notification = new Notification();

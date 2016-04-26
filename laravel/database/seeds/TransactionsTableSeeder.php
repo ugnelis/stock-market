@@ -16,8 +16,8 @@ class TransactionsTableSeeder extends Seeder
     {
         DB::table('transactions')->delete();
 
-        $user1 = User::where('name', 'Ugnius')->first();
-        $user2 = User::where('name', 'Test')->first();
+        $user1 = User::where('name', 'Administrator')->first();
+        $user2 = User::where('name', 'Moderator')->first();
 
         $stock = Stock::where('symbol', 'aapl')->first();
         $transaction = new Transaction();
